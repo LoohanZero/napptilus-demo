@@ -17,10 +17,12 @@
   text-align: center;
   padding: 20px;
   color: #676767;
+
 }
 
 .cards-container {
   width: 100%;
+  padding-top: 60px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

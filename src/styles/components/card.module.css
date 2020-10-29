@@ -1,0 +1,13 @@
+.card-container {
+  width: 28%;
+}
+
+.image-container {
+  height: 200px;
+  overflow: hidden;
+}
+.card-image {
+  position: relative;
+  width: 100%;
+  top: -35px;
+}
