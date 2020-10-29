@@ -9,12 +9,13 @@ import style from "../styles/components/header.module.css";
 const Header = () => {
   return (
     <Container as="header" className={style.header}>
-      <Container as="nav">
+      <Container as="nav" className={style.nav}>
         <Link to="/">
           <Image src={oompa} className={style["nav-icon"]} />
         </Link>
-        <Text>Oompa Loompa's Crew</Text>
+        <Text className={style["nav-description"]}>Oompa Loompa's Crew</Text>
       </Container>
+      
     </Container>
   );
 };
