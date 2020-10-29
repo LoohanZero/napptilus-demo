@@ -18,7 +18,9 @@ const Home = () => {
         );
         const data = await response.json();
         setOompas(data.results);
-      } catch {}
+      } catch {
+
+      }
     };
     getOompas();
   }, [page]);
@@ -27,7 +29,7 @@ const Home = () => {
       <Search />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
-      <Container>
+      <Container className={style["cards-container"]}>
         {oompas &&
           oompas.map((oompa) => (
             <Card

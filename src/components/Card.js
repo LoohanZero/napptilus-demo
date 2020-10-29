@@ -5,7 +5,6 @@ import Image from "./primitive/Image";
 import Text from "./primitive/Text";
 
 const Card = ({ src, firstName, lastName, gender, profession }) => {
-  console.log(src);
   const oompaGender = gender === "F" ? "Female" : "Male";
   return (
     <Container as="article">
