@@ -6,11 +6,11 @@ import Span from "./primitive/Span";
 import Text from "./primitive/Text";
 import style from "../styles/components/card.module.css";
 
-const Card = ({ src, firstName, lastName, gender, profession }) => {
+const Card = ({ id, src, firstName, lastName, gender, profession }) => {
   const oompaGender = gender === "F" ? "Woman" : "Man";
 
   return (
-    <Container as="article" className={style["card-container"]}>
+    <Container id={id} as="article" className={style["card-container"]}>
       <Container className={style["image-container"]}>
         <Image src={src} className={style["card-image"]} />
       </Container>

@@ -15,7 +15,7 @@ const Home = () => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
-      
+
     const scrollHeight =
       (document.documentElement && document.documentElement.scrollHeight) ||
       document.body.scrollHeight;
@@ -58,6 +58,7 @@ const Home = () => {
         {oompas.length > 1 &&
           oompas.map((oompa) => (
             <Card
+              id={oompa.id}
               src={oompa.image}
               firstName={oompa.first_name}
               lastName={oompa.last_name}
