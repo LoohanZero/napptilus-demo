@@ -1,14 +1,19 @@
 import React from "react";
-import { Container } from "./components";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Details from "./pages/Details";
+import Container from "./components/primitive/Container";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <Container className="App">
+    <Container>
       <Router>
+        <Header />
+
         <Switch>
-          <Route exact path="/" />
-          <Route exact path="/:id" />
+          <Route exact path="/:id" component={Details} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </Router>
     </Container>

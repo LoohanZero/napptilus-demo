@@ -1,10 +1,9 @@
 import React from "react";
-import { Container } from "../components/primitive";
+import Container from "../components/primitive/Container";
+
 
 const Home = () => {
-  return <Container>
-      
-  </Container>;
+  return <Container></Container>;
 };
 
 export default Home;
