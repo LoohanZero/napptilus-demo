@@ -7,18 +7,19 @@ import Text from "./primitive/Text";
 import style from "../styles/components/card.module.css";
 
 const Card = ({ src, firstName, lastName, gender, profession }) => {
-  const oompaGender = gender === "F" ? "Female" : "Male";
+  const oompaGender = gender === "F" ? "Woman" : "Man";
+
   return (
     <Container as="article" className={style["card-container"]}>
       <Container className={style["image-container"]}>
         <Image src={src} className={style["card-image"]} />
       </Container>
-      <Heading level={2} className={style}>
+      <Heading level={2} className={style.name}>
         <Span>{firstName}</Span>
         <Span> {lastName}</Span>
       </Heading>
-      <Text className={style}>{oompaGender}</Text>
-      <Text className={style}>{profession}</Text>
+      <Text className={style.description}>{oompaGender}</Text>
+      <Text className={style.description}>{profession}</Text>
     </Container>
   );
 };

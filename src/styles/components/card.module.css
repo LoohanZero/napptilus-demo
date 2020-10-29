@@ -1,5 +1,7 @@
 .card-container {
   width: 28%;
+  padding: 15px 0;
+  margin: 20px 0;
 }
 
 .image-container {
@@ -10,4 +12,23 @@
   position: relative;
   width: 100%;
   top: -35px;
+}
+
+.name {
+  font-size: 18px;
+  padding: 20px 0 7px 0;
+}
+
+.name span {
+  padding-right: 5px;
+}
+
+.description {
+  font-size: 13px;
+  color: #676767;
+  padding-bottom: 5px;
+}
+
+.description:nth-child(2n) {
+  font-style: italic;
 }

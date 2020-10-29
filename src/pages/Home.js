@@ -11,6 +11,8 @@ const Home = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
     const getOompas = async () => {
       try {
         const response = await fetch(
@@ -18,12 +20,13 @@ const Home = () => {
         );
         const data = await response.json();
         setOompas(data.results);
-      } catch {
-
-      }
+      } catch {}
     };
     getOompas();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [page]);
+
+  
   return (
     <Container as="main" className={style["home-container"]}>
       <Search />
