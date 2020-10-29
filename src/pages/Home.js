@@ -30,16 +30,24 @@ const Home = () => {
     }
   };
 
+  const filterOompas = (oompa) => {
+    if (inputValue === "Search") {
+      return true;
+    } else if (
+      oompa.first_name.toLowerCase().includes(inputValue) ||
+      oompa.last_name.toLowerCase().includes(inputValue) ||
+      oompa.profession.toLowerCase().includes(inputValue)
+    ) {
+      return true;
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isBottom) {
-      setPage(page + 1);
-    }
-
     const getOompas = async () => {
       try {
         const response = await fetch(
@@ -49,6 +57,7 @@ const Home = () => {
 
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
+        setPage(page + 1);
       } catch {}
     };
     getOompas();
@@ -61,16 +70,18 @@ const Home = () => {
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style["cards-container"]}>
         {oompas.length > 1 &&
-          oompas.map((oompa) => (
-            <Card
-              id={oompa.id}
-              src={oompa.image}
-              firstName={oompa.first_name}
-              lastName={oompa.last_name}
-              gender={oompa.gender}
-              profession={oompa.profession}
-            />
-          ))}
+          oompas
+            .filter((oompa) => filterOompas(oompa))
+            .map((oompa) => (
+              <Card
+                id={oompa.id}
+                src={oompa.image}
+                firstName={oompa.first_name}
+                lastName={oompa.last_name}
+                gender={oompa.gender}
+                profession={oompa.profession}
+              />
+            ))}
       </Container>
     </Container>
   );
