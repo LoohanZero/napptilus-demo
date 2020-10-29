@@ -1,0 +1,6 @@
+.home-container {
+  width: 100vw;
+  min-height: calc(100vh - 50px);
+  height: 100%;
+}
+
