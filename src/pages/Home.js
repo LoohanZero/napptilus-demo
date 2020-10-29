@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
 import Image from "../components/primitive/Image";
@@ -10,11 +10,12 @@ import searchIcon from "../imgs/ic_search.png";
 import style from "../styles/pages/home.module.css";
 
 const Home = () => {
+  const [inputValue, setInputValue] = useState("Search");
   return (
     <Container as="main" className={style["home-container"]}>
-      <Container className={style["home-search-container"]}>
-        <Input className={style["home-search-input"]} placeholder="Search" />
-        <Image className={style} scr={searchIcon} />
+      <Container className={style["search-container"]}>
+        <Input className={style["search-input"]} value={inputValue} />
+        <Image className={style["search-icon"]} src={searchIcon} />
       </Container>
 
       <Heading>Find your Oompa Loompa</Heading>
