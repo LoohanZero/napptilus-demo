@@ -10,6 +10,11 @@ const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
+  const [inputValue, setInputValue] = useState("Search");
+
+  const handleSearch = (event) => {
+    setInputValue(event.target.value);
+  };
 
   const handleScroll = () => {
     const scrollTop =
@@ -51,7 +56,7 @@ const Home = () => {
 
   return (
     <Container as="main" className={style["home-container"]}>
-      <Search />
+      <Search searchFunction={handleSearch} value={inputValue} />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style["cards-container"]}>
