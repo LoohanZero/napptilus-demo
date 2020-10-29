@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "./components/primitive/Container";
+import { Container } from "./components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
