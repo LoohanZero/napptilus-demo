@@ -10,7 +10,7 @@ const Home = () => {
     <Container as="main" className={style["home-container"]}>
       <Search />
       <Heading className={style.title} >Find your Oompa Loompa</Heading>
-      <Text>There are more than 100k</Text>
+      <Text className={style.subtitle} >There are more than 100k</Text>
       <Container></Container>
     </Container>
   );
