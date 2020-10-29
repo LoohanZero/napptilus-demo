@@ -10,6 +10,7 @@
   font-size: 60px;
   text-align: center;
   font-weight: normal;
+  padding-top: 50px;
 }
 
 .subtitle {
@@ -17,7 +18,6 @@
   text-align: center;
   padding: 20px;
   color: #676767;
-
 }
 
 .cards-container {

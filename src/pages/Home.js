@@ -9,9 +9,31 @@ import style from "../styles/pages/home.module.css";
 const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
+  const [isBottom, setIsBottom] = useState(false);
+
+  const handleScroll = () => {
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+      
+    const scrollHeight =
+      (document.documentElement && document.documentElement.scrollHeight) ||
+      document.body.scrollHeight;
+
+    if (scrollTop + window.innerHeight + 150 >= scrollHeight) {
+      setIsBottom(true);
+    }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isBottom) {
+      setPage(page + 1);
+    }
 
     const getOompas = async () => {
       try {
@@ -19,21 +41,21 @@ const Home = () => {
           `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
         );
         const data = await response.json();
-        setOompas(data.results);
+
+        setOompas([...oompas, ...data.results]);
+        setIsBottom(false);
       } catch {}
     };
     getOompas();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [page]);
+  }, [isBottom]);
 
-  
   return (
     <Container as="main" className={style["home-container"]}>
       <Search />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style["cards-container"]}>
-        {oompas &&
+        {oompas.length > 1 &&
           oompas.map((oompa) => (
             <Card
               src={oompa.image}
