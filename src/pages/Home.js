@@ -12,9 +12,9 @@ import style from "../styles/pages/home.module.css";
 const Home = () => {
   return (
     <Container as="main" className={style["home-container"]}>
-      <Container>
-        <Input placeholder="Search" />
-        <Image scr={searchIcon} />
+      <Container className={style["home-search-container"]}>
+        <Input className={style["home-search-input"]} placeholder="Search" />
+        <Image className={style} scr={searchIcon} />
       </Container>
 
       <Heading>Find your Oompa Loompa</Heading>
