@@ -19,14 +19,11 @@ const Details = () => {
 
   useEffect(() => {
     const getOompa = async () => {
-      try {
-        const response = await fetch(
-          `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
-        );
-        const data = await response.json();
-
-        setOompa(data);
-      } catch {}
+      fetch(
+        `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
+      )
+        .then((response) => response.json())
+        .then((data) => setOompa(data));
     };
     getOompa();
   }, [id]);
@@ -34,7 +31,7 @@ const Details = () => {
   return (
     oompa && (
       <>
-      <ScrollToTop/>
+        <ScrollToTop />
         <Container as="section" id={id} className={style["details-container"]}>
           <Container className={style["oompa-container"]}>
             <Container className={style["image-container"]}>

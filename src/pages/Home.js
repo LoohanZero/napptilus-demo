@@ -11,7 +11,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
   const [inputValue, setInputValue] = useState("Search");
-  const [error, setError] = useState("");
+  const saveInNav = window.localStorage;
 
   const handleSearch = (event) => {
     setInputValue(event.target.value);
@@ -31,6 +31,23 @@ const Home = () => {
     }
   };
 
+  const getOompas = async () => {
+    fetch(
+      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setOompas([...oompas, ...data.results]);
+        setIsBottom(false);
+        setPage(page + 1);
+        const toStorage = {
+          date: new Date(),
+          oompas: [...oompas, ...data.results],
+        };
+        saveInNav.setItem("data", JSON.stringify(toStorage));
+      });
+  };
+
   const filterOompas = (oompa) => {
     const isIncluded =
       oompa.first_name.toLowerCase().includes(inputValue) ||
@@ -46,28 +63,25 @@ const Home = () => {
     }
   };
 
+  const checkTimeStorage = (data) => {
+    if (data.date < new Date()) {
+      localStorage.removeItem("data");
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const getOompas = async () => {
-      try {
-        const response = await fetch(
-          `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
-        );
-        const data = await response.json();
-
-        setOompas([...oompas, ...data.results]);
-        setIsBottom(false);
-        setPage(page + 1);
-      } catch(error) {
-        const errorInfo = new Error(error);
-        setError(errorInfo.message);
-      }
-    };
-    getOompas();
+    if (saveInNav.getItem("data") && !isBottom) {
+      const data = JSON.parse(saveInNav.getItem("data"));
+      setOompas(data.oompas);
+      checkTimeStorage(data.date);
+    } else {
+      getOompas();
+    }
   }, [isBottom]);
 
   return (

@@ -1,6 +1,5 @@
 .details-container {
   padding: 80px 150px;
-  min-height: calc(100vh - 60px);
   height: 100%;
   font-size: 17px;
 }
