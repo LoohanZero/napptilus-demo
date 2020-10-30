@@ -11,6 +11,9 @@ const Details = () => {
   const [oompa, setOompa] = useState([]);
   const [error, setError] = useState("");
   const { id } = useParams();
+  const createMarkup = (description) => {
+    return { __html: description };
+  };
 
   useEffect(() => {
     const getOompa = async () => {
@@ -30,23 +33,39 @@ const Details = () => {
   }, [id]);
 
   return (
-    <Container as="section" id={id} className={style["details-container"]}>
-      <Container className={style["image-container"]}>
-        <Image className={style["details-image"]} src={oompa.image} />
-      </Container>
+    oompa && (
+      <>
+        <Container as="section" id={id} className={style["details-container"]}>
+          <Container className={style["oompa-container"]}>
+            <Container className={style["image-container"]}>
+              <Image className={style["details-image"]} src={oompa.image} />
+            </Container>
 
-      <Container className={style["description-container"]}>
-        <Container className={style["name-container"]}>
-          <Heading className={style.name}>
-            <Span>{oompa.first_name}</Span>
-            <Span>{oompa.last_name}</Span>
-          </Heading>
-          <Text className={style.gender}>{oompa.gender === "F" ? "Woman" : "Man"}</Text>
-          <Text className={style.profession}>{oompa.profession}</Text>
+            <Container className={style["description-container"]}>
+              <Container className={style["name-container"]}>
+                <Heading className={style.name}>
+                  <Span>{oompa.first_name}</Span>
+                  <Span>{oompa.last_name}</Span>
+                </Heading>
+                <Text className={style.gender}>
+                  {oompa.gender === "F" ? "Woman" : "Man"}
+                </Text>
+                <Text className={style.profession}>{oompa.profession}</Text>
+              </Container>
+
+              {oompa.description && !oompa.description.includes("<") ? (
+                <Text className={style.description}>{oompa.description}</Text>
+              ) : (
+                <Container
+                  className={style.description}
+                  dangerouslySetInnerHTML={createMarkup(oompa.description)}
+                />
+              )}
+            </Container>
+          </Container>
         </Container>
-        <Text className={style.description} >{oompa.description}</Text>
-      </Container>
-    </Container>
+      </>
+    )
   );
 };
 
