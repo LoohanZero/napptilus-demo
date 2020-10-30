@@ -40,8 +40,14 @@ const Home = () => {
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         setPage(page + 1);
+
+        const datatoday = new Date();
+        const datatodays = datatoday.setDate(new Date(datatoday).getDate() + 1);
+        const todate = new Date(datatodays);
+        const expDate = todate.toString();
+
         const toStorage = {
-          date: new Date(),
+          expirationDate: expDate,
           oompas: [...oompas, ...data.results],
         };
         saveInNav.setItem("data", JSON.stringify(toStorage));
@@ -63,8 +69,9 @@ const Home = () => {
     }
   };
 
-  const checkTimeStorage = (data) => {
-    if (data.date < new Date()) {
+  const checkTimeStorage = (date) => {
+    console.log(date);
+    if (date < new Date()) {
       localStorage.removeItem("data");
     }
   };
@@ -78,7 +85,7 @@ const Home = () => {
     if (saveInNav.getItem("data") && !isBottom) {
       const data = JSON.parse(saveInNav.getItem("data"));
       setOompas(data.oompas);
-      checkTimeStorage(data.date);
+      checkTimeStorage(data.expirationDate);
     } else {
       getOompas();
     }
