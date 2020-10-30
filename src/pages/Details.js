@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import dompurify from "dompurify";
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
 import Image from "../components/primitive/Image";
@@ -12,7 +13,8 @@ const Details = () => {
   const [error, setError] = useState("");
   const { id } = useParams();
   const createMarkup = (description) => {
-    return { __html: description };
+    const sanitizer = dompurify.sanitize;
+    return { __html: sanitizer(description) };
   };
 
   useEffect(() => {
