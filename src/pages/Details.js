@@ -34,7 +34,7 @@ const Details = () => {
   return (
     oompa && (
       <>
-        <ScrollToTop />
+      <ScrollToTop/>
         <Container as="section" id={id} className={style["details-container"]}>
           <Container className={style["oompa-container"]}>
             <Container className={style["image-container"]}>
