@@ -10,7 +10,6 @@ import style from "../styles/pages/details.module.css";
 
 const Details = () => {
   const [oompa, setOompa] = useState([]);
-  const [error, setError] = useState("");
   const { id } = useParams();
   const createMarkup = (description) => {
     const sanitizer = dompurify.sanitize;
@@ -26,10 +25,7 @@ const Details = () => {
         const data = await response.json();
 
         setOompa(data);
-      } catch (error) {
-        const errorInfo = new Error(error);
-        setError(errorInfo.message);
-      }
+      } catch {}
     };
     getOompa();
   }, [id]);
@@ -50,7 +46,8 @@ const Details = () => {
                   <Span>{oompa.last_name}</Span>
                 </Heading>
                 <Text className={style.gender}>
-                  {oompa.gender === "F" ? "Woman" : "Man"}
+                  {console.log(oompa)}
+                  {oompa && oompa.gender === "F" ? "Woman" : "Man"}
                 </Text>
                 <Text className={style.profession}>{oompa.profession}</Text>
               </Container>
