@@ -6,6 +6,7 @@ import Heading from "../components/primitive/Heading";
 import Image from "../components/primitive/Image";
 import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
+import ScrollToTop from "../components/ScrollToTop";
 import style from "../styles/pages/details.module.css";
 
 const Details = () => {
@@ -33,6 +34,7 @@ const Details = () => {
   return (
     oompa && (
       <>
+        <ScrollToTop />
         <Container as="section" id={id} className={style["details-container"]}>
           <Container className={style["oompa-container"]}>
             <Container className={style["image-container"]}>
@@ -46,8 +48,8 @@ const Details = () => {
                   <Span>{oompa.last_name}</Span>
                 </Heading>
                 <Text className={style.gender}>
-                  {console.log(oompa)}
-                  {oompa && oompa.gender === "F" ? "Woman" : "Man"}
+                  {oompa.gender === "F" && "Woman"}
+                  {oompa.gender === "M" && "Man"}
                 </Text>
                 <Text className={style.profession}>{oompa.profession}</Text>
               </Container>
