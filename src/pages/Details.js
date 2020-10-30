@@ -5,8 +5,7 @@ import Heading from "../components/primitive/Heading";
 import Image from "../components/primitive/Image";
 import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
-import Card from "../components/Card";
-import style from "../styles/pages/home.module.css";
+import style from "../styles/pages/details.module.css";
 
 const Details = () => {
   const [oompa, setOompa] = useState([]);
@@ -28,24 +27,24 @@ const Details = () => {
       }
     };
     getOompa();
-  }, []);
+  }, [id]);
 
   return (
-    <Container as="section" id={id}>
-      <Container>
-        <Image src={oompa.image} />
+    <Container as="section" id={id} className={style["details-container"]}>
+      <Container className={style["image-container"]}>
+        <Image className={style["details-image"]} src={oompa.image} />
       </Container>
 
-      <Container>
-        <Container>
-          <Heading>
+      <Container className={style["description-container"]}>
+        <Container className={style["name-container"]}>
+          <Heading className={style.name}>
             <Span>{oompa.first_name}</Span>
             <Span>{oompa.last_name}</Span>
           </Heading>
-          <Text>{oompa.gender === "F" ? "Woman" : "Man"}</Text>
-          <Text>{oompa.profession}</Text>
+          <Text className={style.gender}>{oompa.gender === "F" ? "Woman" : "Man"}</Text>
+          <Text className={style.profession}>{oompa.profession}</Text>
         </Container>
-        <Text>{oompa.description}</Text>
+        <Text className={style.description} >{oompa.description}</Text>
       </Container>
     </Container>
   );

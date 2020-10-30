@@ -1,0 +1,58 @@
+.details-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 150px;
+  min-height: calc(100vh - 60px);
+  height: 100%;
+}
+
+.image-container {
+  width: 48%;
+  height: 450px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-image {
+  height: 560px;
+  position: relative;
+  top: -35px;
+}
+
+.description-container {
+  width: 48%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.name-container {
+  padding-bottom: 50px;
+}
+.name {
+  padding-bottom: 10px;
+}
+
+.name span {
+  padding-right: 7px;
+}
+
+.gender {
+  font-size: 15px;
+  color: #676767;
+  padding-bottom: 5px;
+}
+
+.profession {
+  color: #676767;
+  font-style: italic;
+}
+
+.description {
+  line-height: 30px;
+  width: 80%;
+}
