@@ -11,6 +11,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
   const [inputValue, setInputValue] = useState("Search");
+  const [error, setError] = useState("");
 
   const handleSearch = (event) => {
     setInputValue(event.target.value);
@@ -31,14 +32,17 @@ const Home = () => {
   };
 
   const filterOompas = (oompa) => {
-    if (inputValue === "Search") {
-      return true;
-    } else if (
+    const isIncluded =
       oompa.first_name.toLowerCase().includes(inputValue) ||
       oompa.last_name.toLowerCase().includes(inputValue) ||
-      oompa.profession.toLowerCase().includes(inputValue)
-    ) {
+      oompa.profession.toLowerCase().includes(inputValue);
+
+    if (inputValue === "Search") {
       return true;
+    } else if (isIncluded) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -58,7 +62,10 @@ const Home = () => {
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         setPage(page + 1);
-      } catch {}
+      } catch(error) {
+        const errorInfo = new Error(error);
+        setError(errorInfo.message);
+      }
     };
     getOompas();
   }, [isBottom]);
