@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Container from "./primitive/Container";
 import Text from "./primitive/Text";
 import Image from "./primitive/Image";
@@ -10,9 +10,9 @@ const Header = () => {
   return (
     <Container as="header" className={style.header}>
       <Container as="nav" className={style.nav}>
-        <Link to="/">
+        <NavLink to="/">
           <Image src={oompaIcon} className={style["nav-icon"]} />
-        </Link>
+        </NavLink>
         <Text className={style["nav-description"]}>Oompa Loompa's Crew</Text>
       </Container>
     </Container>
