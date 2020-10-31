@@ -9,6 +9,11 @@ import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
 import style from "../styles/pages/details.module.css";
 
+const GENDER = {
+  F: "Woman",
+  M: "Man",
+};
+
 const Details = () => {
   const [oompa, setOompa] = useState([]);
   const { id } = useParams();
@@ -44,10 +49,7 @@ const Details = () => {
                   <Span>{oompa.first_name}</Span>
                   <Span>{oompa.last_name}</Span>
                 </Heading>
-                <Text className={style.gender}>
-                  {oompa.gender === "F" && "Woman"}
-                  {oompa.gender === "M" && "Man"}
-                </Text>
+                <Text className={style.gender}>{GENDER[oompa.gender]}</Text>
                 <Text className={style.profession}>{oompa.profession}</Text>
               </Container>
 

@@ -6,6 +6,11 @@ import Span from "./primitive/Span";
 import Text from "./primitive/Text";
 import style from "../styles/components/card.module.css";
 
+const GENDER = {
+  F: "Woman",
+  M: "Man",
+};
+
 const Card = ({
   id,
   cardKey,
@@ -14,10 +19,8 @@ const Card = ({
   lastName,
   gender,
   profession,
-  functionClick
+  functionClick,
 }) => {
-  const oompaGender = gender === "F" ? "Woman" : "Man";
-
 
   return (
     <Container
@@ -34,7 +37,7 @@ const Card = ({
         <Span>{firstName}</Span>
         <Span> {lastName}</Span>
       </Heading>
-      <Text className={style.description}>{oompaGender}</Text>
+      <Text className={style.description}>{GENDER[gender]}</Text>
       <Text className={style.description}>{profession}</Text>
     </Container>
   );
