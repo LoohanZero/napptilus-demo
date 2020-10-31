@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
 import Search from "../components/Search";
@@ -15,6 +16,12 @@ const Home = () => {
 
   const handleSearch = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const history = useHistory();
+
+  const handleDetailsClick = (id) => {
+    history.push(`/${id}`);
   };
 
   const handleScroll = () => {
@@ -102,11 +109,13 @@ const Home = () => {
             .map((oompa) => (
               <Card
                 id={oompa.id}
+                cardKey={oompa.id}
                 src={oompa.image}
                 firstName={oompa.first_name}
                 lastName={oompa.last_name}
                 gender={oompa.gender}
                 profession={oompa.profession}
+                functionClick={() => handleDetailsClick(oompa.id)}
               />
             ))}
       </Container>
