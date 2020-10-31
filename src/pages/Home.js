@@ -91,11 +91,11 @@ const Home = () => {
   }, [isBottom]);
 
   return (
-    <Container as="main" className={style["home-container"]}>
+    <Container as="main" className={style.homeContainer}>
       <Search searchFunction={handleSearch} value={inputValue} />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
-      <Container className={style["cards-container"]}>
+      <Container className={style.cardsContainer}>
         {oompas.length > 1 &&
           oompas
             .filter((oompa) => filterOompas(oompa))

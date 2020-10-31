@@ -1,4 +1,4 @@
-.home-container {
+.homeContainer {
   width: 100vw;
   min-height: calc(100vh - 60px);
   height: 100%;
@@ -20,7 +20,7 @@
   color: #676767;
 }
 
-.cards-container {
+.cardsContainer {
   width: 100%;
   padding-top: 60px;
   display: flex;

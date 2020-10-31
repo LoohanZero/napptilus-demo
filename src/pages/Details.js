@@ -32,14 +32,14 @@ const Details = () => {
     oompa && (
       <>
         <ScrollToTop />
-        <Container as="section" id={id} className={style["details-container"]}>
-          <Container className={style["oompa-container"]}>
-            <Container className={style["image-container"]}>
-              <Image className={style["details-image"]} src={oompa.image} />
+        <Container as="section" id={id} className={style.detailsContainer}>
+          <Container className={style.oompaContainer}>
+            <Container className={style.imageContainer}>
+              <Image className={style.detailsImage} src={oompa.image} />
             </Container>
 
-            <Container className={style["description-container"]}>
-              <Container className={style["name-container"]}>
+            <Container className={style.descriptionContainer}>
+              <Container className={style.nameContainer}>
                 <Heading className={style.name}>
                   <Span>{oompa.first_name}</Span>
                   <Span>{oompa.last_name}</Span>

@@ -1,16 +1,16 @@
-.details-container {
+.detailsContainer {
   padding: 80px 150px;
   height: 100%;
   font-size: 17px;
 }
 
-.oompa-container {
+.oompaContainer {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.image-container {
+.imageContainer {
   width: 60%;
   height: 420px;
   padding-right: 15px;
@@ -21,13 +21,13 @@
   box-sizing: border-box;
 }
 
-.details-image {
+.detailsImage {
   width: 100%;
   position: relative;
   top: -35px;
 }
 
-.description-container {
+.descriptionContainer {
   width: 39%;
   height: 400px;
   display: flex;
@@ -35,7 +35,7 @@
   justify-content: flex-start;
 }
 
-.name-container {
+.nameContainer {
   padding-bottom: 50px;
 }
 .name {

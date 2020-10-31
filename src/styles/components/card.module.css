@@ -1,15 +1,15 @@
-.card-container {
+.cardContainer {
   width: 30%;
   padding: 15px 0;
   margin: 20px 0;
   cursor: pointer;
 }
 
-.image-container {
+.imageContainer {
   height: 200px;
   overflow: hidden;
 }
-.card-image {
+.cardImage {
   position: relative;
   width: 100%;
   top: -35px;

@@ -19,12 +19,12 @@ const Card = ({ id, src, firstName, lastName, gender, profession }) => {
     <Container
       id={id}
       as="article"
-      className={style["card-container"]}
+      className={style.cardContainer}
       key={id}
       onClick={() => handleDetailsClick(id)}
     >
-      <Container className={style["image-container"]}>
-        <Image src={src} className={style["card-image"]} />
+      <Container className={style.imageContainer}>
+        <Image src={src} className={style.cardImage} />
       </Container>
       <Heading level={2} className={style.name}>
         <Span>{firstName}</Span>

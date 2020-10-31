@@ -11,9 +11,9 @@ const Header = () => {
     <Container as="header" className={style.header}>
       <Container as="nav" className={style.nav}>
         <NavLink to="/">
-          <Image src={oompaIcon} className={style["nav-icon"]} />
+          <Image src={oompaIcon} className={style.navIcon} />
         </NavLink>
-        <Heading className={style["nav-description"]}>
+        <Heading className={style.navDescription}>
           Oompa Loompa's Crew
         </Heading>
       </Container>

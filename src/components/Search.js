@@ -6,15 +6,14 @@ import searchIcon from "../imgs/ic_search.png";
 import style from "../styles/components/search.module.css";
 
 const Search = ({ searchFunction, inputValue }) => {
- 
   return (
-    <Container className={style["search-container"]}>
+    <Container className={style.searchContainer}>
       <Input
         onChange={searchFunction}
-        className={style["search-input"]}
+        className={style.searchInput}
         value={inputValue}
       />
-      <Image className={style["search-icon"]} src={searchIcon} />
+      <Image className={style.searchIcon} src={searchIcon} />
     </Container>
   );
 };
