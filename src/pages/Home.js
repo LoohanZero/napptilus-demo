@@ -63,7 +63,7 @@ const Home = () => {
 
   const isSearched = (oompa) => {
     return (
-      inputValue === "" ||
+      inputValue.toLocaleLowerCase() === "" ||
       oompa.first_name.toLowerCase().includes(inputValue) ||
       oompa.last_name.toLowerCase().includes(inputValue) ||
       oompa.profession.toLowerCase().includes(inputValue)
