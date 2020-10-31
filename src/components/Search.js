@@ -5,13 +5,14 @@ import Input from "./primitive/Input";
 import searchIcon from "../imgs/ic_search.png";
 import style from "../styles/components/search.module.css";
 
-const Search = ({ searchFunction, inputValue }) => {
+const Search = ({ searchFunction, inputValue, placeholder }) => {
   return (
     <Container className={style.searchContainer}>
       <Input
         onChange={searchFunction}
         className={style.searchInput}
         value={inputValue}
+        placeholder={placeholder}
       />
       <Image className={style.searchIcon} src={searchIcon} />
     </Container>

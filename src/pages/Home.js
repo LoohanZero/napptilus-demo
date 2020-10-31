@@ -11,7 +11,7 @@ const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
-  const [inputValue, setInputValue] = useState("Search");
+  const [inputValue, setInputValue] = useState("");
   const saveInNav = window.localStorage;
 
   const handleSearch = (event) => {
@@ -99,7 +99,11 @@ const Home = () => {
 
   return (
     <Container as="main" className={style.homeContainer}>
-      <Search searchFunction={handleSearch} value={inputValue} />
+      <Search
+        searchFunction={handleSearch}
+        value={inputValue}
+        placeholder="Search"
+      />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style.cardsContainer}>
