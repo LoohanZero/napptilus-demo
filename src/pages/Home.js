@@ -11,7 +11,7 @@ const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("Search");
   const saveInNav = window.localStorage;
 
   const handleSearch = (event) => {
@@ -61,19 +61,13 @@ const Home = () => {
       });
   };
 
-  const filterOompas = (oompa) => {
-    const isIncluded =
+  const isSearched = (oompa) => {
+    return (
+      inputValue === "" ||
       oompa.first_name.toLowerCase().includes(inputValue) ||
       oompa.last_name.toLowerCase().includes(inputValue) ||
-      oompa.profession.toLowerCase().includes(inputValue);
-
-    if (inputValue === "Search") {
-      return true;
-    } else if (isIncluded) {
-      return true;
-    } else {
-      return false;
-    }
+      oompa.profession.toLowerCase().includes(inputValue)
+    );
   };
 
   const checkTimeStorage = (date) => {
@@ -99,17 +93,13 @@ const Home = () => {
 
   return (
     <Container as="main" className={style.homeContainer}>
-      <Search
-        searchFunction={handleSearch}
-        value={inputValue}
-        placeholder="Search"
-      />
+      <Search searchFunction={handleSearch} value={inputValue} />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style.cardsContainer}>
         {oompas.length > 1 &&
           oompas
-            .filter((oompa) => filterOompas(oompa))
+            .filter(isSearched)
             .map((oompa) => (
               <Card
                 id={oompa.id}
