@@ -16,6 +16,7 @@ const GENDER = {
 
 const Details = () => {
   const [oompa, setOompa] = useState([]);
+  const [error, setError] = useState("");
   const { id } = useParams();
   const createMarkup = (description) => {
     const sanitizer = dompurify.sanitize;
@@ -28,39 +29,55 @@ const Details = () => {
         `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
       )
         .then((response) => response.json())
-        .then((data) => setOompa(data));
+        .then((data) => {
+          if (data.errorMessage) {
+            setError(data);
+          } else {
+            setOompa(data);
+          }
+        });
     };
     getOompa();
   }, [id]);
 
   return (
-    oompa && (
-      <>
-        <ScrollToTop />
-        <Container as="section" id={id} className={style.detailsContainer}>
-          <Container className={style.oompaContainer}>
-            <Container className={style.imageContainer}>
-              <Image className={style.detailsImage} src={oompa.image} />
-            </Container>
-
-            <Container className={style.descriptionContainer}>
-              <Container className={style.nameContainer}>
-                <Heading className={style.name}>
-                  <Span>{oompa.first_name}</Span>
-                  <Span>{oompa.last_name}</Span>
-                </Heading>
-                <Text className={style.gender}>{GENDER[oompa.gender]}</Text>
-                <Text className={style.profession}>{oompa.profession}</Text>
+    <>
+      {/* {console.log(error)} */}
+      {error && (
+        <>
+          <Container as="section" id={id} className={style.errorContainer}>
+            <Heading className={style.errorMessage} >{error["errorMessage"]}</Heading>
+          </Container>
+        </>
+      )}
+      {oompa && (
+        <>
+          <ScrollToTop />
+          <Container as="section" id={id} className={style.detailsContainer}>
+            <Container className={style.oompaContainer}>
+              <Container className={style.imageContainer}>
+                <Image className={style.detailsImage} src={oompa.image} />
               </Container>
-              <Container
+
+              <Container className={style.descriptionContainer}>
+                <Container className={style.nameContainer}>
+                  <Heading className={style.name}>
+                    <Span>{oompa.first_name}</Span>
+                    <Span>{oompa.last_name}</Span>
+                  </Heading>
+                  <Text className={style.gender}>{GENDER[oompa.gender]}</Text>
+                  <Text className={style.profession}>{oompa.profession}</Text>
+                </Container>
+                <Container
                   className={style.description}
                   dangerouslySetInnerHTML={createMarkup(oompa.description)}
                 />
+              </Container>
             </Container>
           </Container>
-        </Container>
-      </>
-    )
+        </>
+      )}
+    </>
   );
 };
 

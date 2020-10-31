@@ -4,6 +4,20 @@
   font-size: 17px;
 }
 
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+}
+
+.errorMessage {
+  color: #ff0000;
+  font-size: 25px;
+  width: 30%;
+  text-align: center;
+}
+
 .oompaContainer {
   display: flex;
   align-items: flex-start;

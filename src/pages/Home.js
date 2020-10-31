@@ -35,6 +35,7 @@ const Home = () => {
   };
 
   const checkTimeStorage = (date) => {
+    localStorage.removeItem("data");
     if (new Date(date) <= new Date()) {
       localStorage.removeItem("data");
     }
@@ -74,6 +75,7 @@ const Home = () => {
           expirationDate: expDate,
           oompas: [...oompas, ...data.results],
         };
+        console.log(data.results);
         saveInNav.setItem("data", JSON.stringify(toStorage));
       });
   };
