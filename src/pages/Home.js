@@ -70,8 +70,7 @@ const Home = () => {
   };
 
   const checkTimeStorage = (date) => {
-    console.log(date);
-    if (date < new Date()) {
+    if (new Date(date) <= new Date()) {
       localStorage.removeItem("data");
     }
   };
