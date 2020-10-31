@@ -11,12 +11,8 @@ const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [isBottom, setIsBottom] = useState(false);
-  const [inputValue, setInputValue] = useState("Search");
+  const [search, setSearch] = useState("");
   const saveInNav = window.localStorage;
-
-  const handleSearch = (event) => {
-    setInputValue(event.target.value);
-  };
 
   const history = useHistory();
 
@@ -37,6 +33,27 @@ const Home = () => {
       setIsBottom(true);
     }
   };
+
+  const checkTimeStorage = (date) => {
+    if (new Date(date) <= new Date()) {
+      localStorage.removeItem("data");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (saveInNav.getItem("data") && !isBottom) {
+      const data = JSON.parse(saveInNav.getItem("data"));
+      setOompas(data.oompas);
+      checkTimeStorage(data.expirationDate);
+    } else {
+      getOompas();
+    }
+  }, [isBottom]);
 
   const getOompas = async () => {
     fetch(
@@ -63,37 +80,19 @@ const Home = () => {
 
   const isSearched = (oompa) => {
     return (
-      inputValue.toLocaleLowerCase() === "" ||
-      oompa.first_name.toLowerCase().includes(inputValue) ||
-      oompa.last_name.toLowerCase().includes(inputValue) ||
-      oompa.profession.toLowerCase().includes(inputValue)
+      search.toLocaleLowerCase() === "" ||
+      oompa.first_name.toLowerCase().includes(search) ||
+      oompa.last_name.toLowerCase().includes(search) ||
+      oompa.profession.toLowerCase().includes(search)
     );
   };
 
-  const checkTimeStorage = (date) => {
-    if (new Date(date) <= new Date()) {
-      localStorage.removeItem("data");
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (saveInNav.getItem("data") && !isBottom) {
-      const data = JSON.parse(saveInNav.getItem("data"));
-      setOompas(data.oompas);
-      checkTimeStorage(data.expirationDate);
-    } else {
-      getOompas();
-    }
-  }, [isBottom]);
-
   return (
     <Container as="main" className={style.homeContainer}>
-      <Search searchFunction={handleSearch} value={inputValue} />
+      <Search
+        searchFunction={(event) => setSearch(event.target.value)}
+        value={search}
+      />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>
       <Text className={style.subtitle}>There are more than 100k</Text>
       <Container className={style.cardsContainer}>
