@@ -52,15 +52,10 @@ const Details = () => {
                 <Text className={style.gender}>{GENDER[oompa.gender]}</Text>
                 <Text className={style.profession}>{oompa.profession}</Text>
               </Container>
-
-              {oompa.description && !oompa.description.includes("<") ? (
-                <Text className={style.description}>{oompa.description}</Text>
-              ) : (
-                <Container
+              <Container
                   className={style.description}
                   dangerouslySetInnerHTML={createMarkup(oompa.description)}
                 />
-              )}
             </Container>
           </Container>
         </Container>
