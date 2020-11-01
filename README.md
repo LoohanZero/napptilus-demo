@@ -1,4 +1,4 @@
-# The Oompas Selector
+# The Oompas' Selector
 
 This is an app that is able to display all the workers in the Willy Wonka factory and it allows their users to filter the Oompas by firstname, lastname or profession. If you click/press enter in any Oompa, the user will be able to see the Oompa's details.
 
