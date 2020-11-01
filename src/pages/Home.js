@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <Container as="main" className={style.homeContainer}>
       <Search
-        searchFunction={(event) => setSearch(event.target.value)}
+        onSearch={setSearch}
         value={search}
       />
       <Heading className={style.title}>Find your Oompa Loompa</Heading>

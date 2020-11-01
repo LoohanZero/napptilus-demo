@@ -8,11 +8,11 @@ import searchIcon from "../imgs/ic_search.png";
 
 import style from "../styles/components/search.module.css";
 
-const Search = ({ searchFunction, inputValue, placeholder }) => {
+const Search = ({ onSearch, inputValue, placeholder }) => {
   return (
     <Container className={style.searchContainer}>
       <Input
-        onChange={searchFunction}
+        onChange={(event) => onSearch(event.target.value)}
         className={style.searchInput}
         value={inputValue}
         placeholder={placeholder}
