@@ -15,7 +15,6 @@ const GENDER = {
 
 const Card = ({
   id,
-  cardKey,
   src,
   firstName,
   lastName,
@@ -27,7 +26,6 @@ const Card = ({
     <Container
       tabIndex="0"
       id={id}
-      key={cardKey}
       as="article"
       className={style.cardContainer}
       onClick={functionClick}

@@ -1,7 +1,8 @@
 const useLocalStorage = () => {
   const localStorage = window.localStorage;
+
   const getData = () => {
-    localStorage.getItem("data");
+    return JSON.parse(localStorage.getItem("data"));
   };
 
   const getExpirationDate = () => {
@@ -11,9 +12,11 @@ const useLocalStorage = () => {
 
     return tomorrow.toString();
   };
-  const saveToLocalStorage = (oompas, data) => {
+
+  const saveToLocalStorage = (oompas, data, page) => {
     const toStorage = {
       expirationDate: getExpirationDate(),
+      page: page,
       oompas: [...oompas, ...data.results],
     };
 
@@ -21,7 +24,6 @@ const useLocalStorage = () => {
   };
 
   const checkTimeStorage = (date) => {
-    localStorage.removeItem("data");
     if (new Date(date) <= new Date()) {
       localStorage.removeItem("data");
     }

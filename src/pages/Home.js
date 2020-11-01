@@ -17,11 +17,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
-  const [
-    getData,
-    checkTimeStorage,
-    saveToLocalStorage,
-  ] = useLocalStorage();
+  const [getData, checkTimeStorage, saveToLocalStorage] = useLocalStorage();
   const history = useHistory();
 
   const handleOompaDetails = (event, id) => {
@@ -30,7 +26,8 @@ const Home = () => {
     }
   };
 
-  const getOompas = async () => {
+  const getOompas = async (page) => {
+    console.log(page);
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
     )
@@ -38,18 +35,24 @@ const Home = () => {
       .then((data) => {
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
+        saveToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
-        saveToLocalStorage(oompas, data);
       });
   };
 
   useEffect(() => {
-    if (getData() && !isBottom) {
-      const data = JSON.parse(getData());
-      setOompas(data.oompas);
-      checkTimeStorage(data.expirationDate);
+    const dataOompas = getData();
+
+    if (
+      (!dataOompas && !isBottom) ||
+      checkTimeStorage(dataOompas) ||
+      isBottom
+    ) {
+      getOompas(page);
     } else {
-      getOompas();
+      const localOompas = getData();
+      setOompas(localOompas.oompas);
+      setPage(localOompas.page);
     }
   }, [isBottom]);
 
@@ -77,7 +80,7 @@ const Home = () => {
             .map((oompa) => (
               <Card
                 id={oompa.id}
-                cardKey={oompa.id}
+                key={oompa.id}
                 src={oompa.image}
                 firstName={oompa.first_name}
                 lastName={oompa.last_name}
