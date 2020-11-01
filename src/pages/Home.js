@@ -6,32 +6,18 @@ import Search from "../components/Search";
 import Text from "../components/primitive/Text";
 import Card from "../components/Card";
 import style from "../styles/pages/home.module.css";
+import useCheckScroll from "../hooks/useCheckScroll";
 
 const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
-  const [isBottom, setIsBottom] = useState(false);
   const [search, setSearch] = useState("");
   const saveInNav = window.localStorage;
-
+  const [isBottom, setIsBottom] = useCheckScroll();
   const history = useHistory();
 
   const handleDetailsClick = (id) => {
     history.push(`/${id}`);
-  };
-
-  const handleScroll = () => {
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-
-    const scrollHeight =
-      (document.documentElement && document.documentElement.scrollHeight) ||
-      document.body.scrollHeight;
-
-    if (scrollTop + window.innerHeight + 150 >= scrollHeight) {
-      setIsBottom(true);
-    }
   };
 
   const checkTimeStorage = (date) => {
@@ -40,21 +26,6 @@ const Home = () => {
       localStorage.removeItem("data");
     }
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (saveInNav.getItem("data") && !isBottom) {
-      const data = JSON.parse(saveInNav.getItem("data"));
-      setOompas(data.oompas);
-      checkTimeStorage(data.expirationDate);
-    } else {
-      getOompas();
-    }
-  }, [isBottom]);
 
   const getOompas = async () => {
     fetch(
@@ -79,6 +50,16 @@ const Home = () => {
         saveInNav.setItem("data", JSON.stringify(toStorage));
       });
   };
+
+  useEffect(() => {
+    if (saveInNav.getItem("data") && !isBottom) {
+      const data = JSON.parse(saveInNav.getItem("data"));
+      setOompas(data.oompas);
+      checkTimeStorage(data.expirationDate);
+    } else {
+      getOompas();
+    }
+  }, [isBottom]);
 
   const isSearched = (oompa) => {
     return (
