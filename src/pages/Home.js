@@ -7,24 +7,19 @@ import Text from "../components/primitive/Text";
 import Card from "../components/Card";
 import style from "../styles/pages/home.module.css";
 import useCheckScroll from "../hooks/useCheckScroll";
+import useCheckLocalStorage from "../hooks/useCheckLocalStorage";
 
 const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const saveInNav = window.localStorage;
   const [isBottom, setIsBottom] = useCheckScroll();
+  const [saveInNav, checkTimeStorage] = useCheckLocalStorage();
+  
   const history = useHistory();
 
   const handleDetailsClick = (id) => {
     history.push(`/${id}`);
-  };
-
-  const checkTimeStorage = (date) => {
-    localStorage.removeItem("data");
-    if (new Date(date) <= new Date()) {
-      localStorage.removeItem("data");
-    }
   };
 
   const getOompas = async () => {
@@ -46,7 +41,6 @@ const Home = () => {
           expirationDate: expDate,
           oompas: [...oompas, ...data.results],
         };
-        console.log(data.results);
         saveInNav.setItem("data", JSON.stringify(toStorage));
       });
   };
