@@ -1,5 +1,8 @@
 const useLocalStorage = () => {
   const localStorage = window.localStorage;
+  const getData = () => {
+    localStorage.getItem("data");
+  };
 
   const getExpirationDate = () => {
     const today = new Date();
@@ -24,7 +27,7 @@ const useLocalStorage = () => {
     }
   };
 
-  return [localStorage, checkTimeStorage, saveToLocalStorage];
+  return [getData, checkTimeStorage, saveToLocalStorage];
 };
 
 export default useLocalStorage;
