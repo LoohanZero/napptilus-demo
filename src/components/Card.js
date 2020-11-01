@@ -21,13 +21,12 @@ const Card = ({
   profession,
   functionClick,
 }) => {
-
   return (
     <Container
       id={id}
+      key={cardKey}
       as="article"
       className={style.cardContainer}
-      key={cardKey}
       onClick={functionClick}
     >
       <Container className={style.imageContainer}>

@@ -48,7 +48,7 @@ const Details = () => {
           <Container as="section" id={id} className={style.errorContainer}>
             <Container className={style.errorDescription}>
               <Image className={style.errorImage} src={errorImage} />
-              <Container className={style.errorHeadingContainer} >
+              <Container className={style.errorHeadingContainer}>
                 <Heading className={style.errorTitle}>Error 404</Heading>
                 <Text evel={2} className={style.errorMessage}>
                   {error["errorMessage"]}
@@ -58,7 +58,7 @@ const Details = () => {
           </Container>
         </>
       )}
-      {oompa && (
+      {oompa && !error && (
         <>
           <ScrollToTop />
           <Container as="section" id={id} className={style.detailsContainer}>
