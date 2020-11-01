@@ -1,9 +1,11 @@
 import React from "react";
+
 import Container from "./primitive/Container";
 import Heading from "./primitive/Heading";
 import Image from "./primitive/Image";
 import Span from "./primitive/Span";
 import Text from "./primitive/Text";
+
 import style from "../styles/components/card.module.css";
 
 const GENDER = {

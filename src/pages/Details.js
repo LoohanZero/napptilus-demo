@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import dompurify from "dompurify";
+
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
 import Image from "../components/primitive/Image";
 import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
+
 import errorImage from "../imgs/500-internal-server-error-featured-image-1.png";
+
 import style from "../styles/pages/details.module.css";
 
 const GENDER = {

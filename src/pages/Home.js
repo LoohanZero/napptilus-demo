@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
 import Search from "../components/Search";
 import Text from "../components/primitive/Text";
 import Card from "../components/Card";
-import style from "../styles/pages/home.module.css";
+
 import useCheckScroll from "../hooks/useCheckScroll";
 import useCheckLocalStorage from "../hooks/useCheckLocalStorage";
+
+import style from "../styles/pages/home.module.css";
+
 
 const Home = () => {
   const [oompas, setOompas] = useState([]);
@@ -15,7 +19,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
   const [saveInNav, checkTimeStorage] = useCheckLocalStorage();
-  
+
   const history = useHistory();
 
   const handleDetailsClick = (id) => {

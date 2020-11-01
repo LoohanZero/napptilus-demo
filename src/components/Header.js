@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+
 import Container from "./primitive/Container";
 import Heading from "./primitive/Heading";
 import Image from "./primitive/Image";
+
 import oompaIcon from "../imgs/logo-umpa-loompa.png";
+
 import style from "../styles/components/header.module.css";
 
 const Header = () => {
