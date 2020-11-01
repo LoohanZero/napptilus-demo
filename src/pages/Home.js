@@ -25,7 +25,7 @@ const Home = () => {
 
   const history = useHistory();
 
-  const handleDetailsClick = (event, id) => {
+  const handleOompaDetails = (event, id) => {
     if (event.key === "Enter" || event.type === "click") {
       history.push(`/${id}`);
     }
@@ -84,7 +84,7 @@ const Home = () => {
                 lastName={oompa.last_name}
                 gender={oompa.gender}
                 profession={oompa.profession}
-                functionClick={(event) => handleDetailsClick(event, oompa.id)}
+                functionClick={(event) => handleOompaDetails(event, oompa.id)}
               />
             ))}
       </Container>
