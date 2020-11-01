@@ -1,14 +1,26 @@
 const useCheckLocalStorage = () => {
-    const saveInNav = window.localStorage;
+  const saveInNav = window.localStorage;
 
-    const checkTimeStorage = (date) => {
-        localStorage.removeItem("data");
-        if (new Date(date) <= new Date()) {
-          localStorage.removeItem("data");
-        }
-      };
-      
-    return [saveInNav, checkTimeStorage]
-}
+  const saveToLocalStorage = (oompas, data) => {
+    const datatoday = new Date();
+    const datatodays = datatoday.setDate(new Date(datatoday).getDate() + 1);
+    const todate = new Date(datatodays);
+    const expDate = todate.toString();
 
-export default useCheckLocalStorage
+    const toStorage = {
+      expirationDate: expDate,
+      oompas: [...oompas, ...data.results],
+    };
+    saveInNav.setItem("data", JSON.stringify(toStorage));
+  };
+
+  const checkTimeStorage = (date) => {
+    if (new Date(date) <= new Date()) {
+      localStorage.removeItem("data");
+    }
+  };
+
+  return [saveInNav, checkTimeStorage, saveToLocalStorage];
+};
+
+export default useCheckLocalStorage;

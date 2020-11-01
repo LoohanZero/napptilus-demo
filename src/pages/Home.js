@@ -12,13 +12,16 @@ import useCheckLocalStorage from "../hooks/useCheckLocalStorage";
 
 import style from "../styles/pages/home.module.css";
 
-
 const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
-  const [saveInNav, checkTimeStorage] = useCheckLocalStorage();
+  const [
+    saveInNav,
+    checkTimeStorage,
+    saveToLocalStorage,
+  ] = useCheckLocalStorage();
 
   const history = useHistory();
 
@@ -35,17 +38,7 @@ const Home = () => {
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         setPage(page + 1);
-
-        const datatoday = new Date();
-        const datatodays = datatoday.setDate(new Date(datatoday).getDate() + 1);
-        const todate = new Date(datatodays);
-        const expDate = todate.toString();
-
-        const toStorage = {
-          expirationDate: expDate,
-          oompas: [...oompas, ...data.results],
-        };
-        saveInNav.setItem("data", JSON.stringify(toStorage));
+        saveToLocalStorage(oompas, data);
       });
   };
 
