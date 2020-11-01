@@ -7,6 +7,7 @@ import Image from "../components/primitive/Image";
 import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
+import errorImage from "../imgs/500-internal-server-error-featured-image-1.png";
 import style from "../styles/pages/details.module.css";
 
 const GENDER = {
@@ -42,11 +43,18 @@ const Details = () => {
 
   return (
     <>
-      {/* {console.log(error)} */}
       {error && (
         <>
           <Container as="section" id={id} className={style.errorContainer}>
-            <Heading className={style.errorMessage} >{error["errorMessage"]}</Heading>
+            <Container className={style.errorDescription}>
+              <Image className={style.errorImage} src={errorImage} />
+              <Container className={style.errorHeadingContainer} >
+                <Heading className={style.errorTitle}>Error 404</Heading>
+                <Text evel={2} className={style.errorMessage}>
+                  {error["errorMessage"]}
+                </Text>
+              </Container>
+            </Container>
           </Container>
         </>
       )}
