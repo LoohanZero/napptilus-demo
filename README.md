@@ -1,4 +1,4 @@
-#The Oompas Selector
+# The Oompas Selector
 
 This is an app that is able to display all the workers in the Willy Wonka factory and it allows their users to filter the Oompas by firstname, lastname or profession. If you click/press enter in any Oompa, the user will be able to see the Oompa's details.
 
@@ -13,10 +13,12 @@ npm i dompurify
 
 This app is created with React JS and Vanilla Javascript.
 
-##Home Image
+## Home Image
+
 ![Home Image](/src/imgs/Home.png)
 
-##Details Image
+## Details Image
+
 ![Home Image](/src/imgs/Details.png)
 
 > "This view should show the list of Oompa Loompas that are available at the endpoint https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=1 where the page query param can be used to select the page to be retrieved. The list must have an endless scroll, so that each page of Oompa Loompas is loaded as the user scrolls down."
@@ -39,6 +41,13 @@ I did it with the "dangerouslySetInnerHTML" attribute but, as it says it's very 
 I stored in the localStorage. The useEffect function has an if condition that checks if the localStorage has the information required, if it does, then the info from the localStorage is displayed. Then it checks if this info is 24hs or more old and if it is, it removes the info from the localStorage. If the localStorage is empty, it triggers the search from the API and retrieves new information.
 
 I first decided to do it all directly on the home but it ended up being rather disorganized. So I moved the check the scroll logic to a hook and imported the functions and variables I needed to the home and then decided to do the same with the localStorage logic. So the code would be more readable and less crowded.
+
+## María Luján Sanchez Cracco
+
+Github: https://github.com/LoohanZero/ <br />
+Linkedin: https://es.linkedin.com/in/lujansanchez
+
+## Napptilus Licence
 
 ---
 
