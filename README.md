@@ -13,7 +13,11 @@ npm i dompurify
 
 This app is created with React JS and Vanilla Javascript.
 
-![Home Image](/imgs/Home.png)
+##Home Image
+![Home Image](/src/imgs/Home.png)
+
+##Details Image
+![Home Image](/src/imgs/Details.png)
 
 > "This view should show the list of Oompa Loompas that are available at the endpoint https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=1 where the page query param can be used to select the page to be retrieved. The list must have an endless scroll, so that each page of Oompa Loompas is loaded as the user scrolls down."
 
