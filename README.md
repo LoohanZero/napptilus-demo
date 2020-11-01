@@ -13,6 +13,8 @@ npm i dompurify
 
 This app is created with React JS and Vanilla Javascript.
 
+![Home Image](/imgs/Home.png)
+
 > "This view should show the list of Oompa Loompas that are available at the endpoint https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=1 where the page query param can be used to select the page to be retrieved. The list must have an endless scroll, so that each page of Oompa Loompas is loaded as the user scrolls down."
 
 I made this possible by getting the info from the API with an asyncronous function in a useEffect hook that will execute when the page mounts, adding a scroll eventListener to the window and taking it off when it unmounts. Another useEffect hook will trigger a handleScroll function that checks everytime the user scrolls down how far from the bottom they are and when it gets to the limit set up, it will trigger a change in the state of the variable "isBottom". This change in the state will do several things: it will trigger the useEffect make a search on the api with that new number. Then it will add the data received to the previous "oompas" variable (if there's an array of them, else it will add it to an empty array). Then, it will set the variable "isBottom" to false because the user is no longer in the bottom of the page as new cards were displayed in the rerender. And finally it will add 1 to the page and save it as a state for the future scroll down.
