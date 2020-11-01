@@ -25,11 +25,13 @@ const Card = ({
 }) => {
   return (
     <Container
+      tabIndex="0"
       id={id}
       key={cardKey}
       as="article"
       className={style.cardContainer}
       onClick={functionClick}
+      onKeyDown={functionClick}
     >
       <Container className={style.imageContainer}>
         <Image src={src} className={style.cardImage} />

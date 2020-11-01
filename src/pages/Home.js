@@ -25,8 +25,10 @@ const Home = () => {
 
   const history = useHistory();
 
-  const handleDetailsClick = (id) => {
-    history.push(`/${id}`);
+  const handleDetailsClick = (event, id) => {
+    if (event.key === "Enter" || event.type === "click") {
+      history.push(`/${id}`);
+    }
   };
 
   const getOompas = async () => {
@@ -82,7 +84,7 @@ const Home = () => {
                 lastName={oompa.last_name}
                 gender={oompa.gender}
                 profession={oompa.profession}
-                functionClick={() => handleDetailsClick(oompa.id)}
+                functionClick={(event) => handleDetailsClick(event, oompa.id)}
               />
             ))}
       </Container>
