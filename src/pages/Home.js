@@ -8,7 +8,7 @@ import Text from "../components/primitive/Text";
 import Card from "../components/Card";
 
 import useCheckScroll from "../hooks/useCheckScroll";
-import useCheckLocalStorage from "../hooks/useCheckLocalStorage";
+import useCheckLocalStorage from "../hooks/useLocalStorage";
 
 import style from "../styles/pages/home.module.css";
 
@@ -18,11 +18,10 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
   const [
-    saveInNav,
+    localStorage,
     checkTimeStorage,
     saveToLocalStorage,
   ] = useCheckLocalStorage();
-
   const history = useHistory();
 
   const handleOompaDetails = (event, id) => {
@@ -45,8 +44,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (saveInNav.getItem("data") && !isBottom) {
-      const data = JSON.parse(saveInNav.getItem("data"));
+    if (localStorage.getItem("data") && !isBottom) {
+      const data = JSON.parse(localStorage.getItem("data"));
       setOompas(data.oompas);
       checkTimeStorage(data.expirationDate);
     } else {

@@ -7,8 +7,6 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 
-
-
 function App() {
   return (
     <Container>
@@ -16,8 +14,8 @@ function App() {
         <Header />
 
         <Switch>
-          <Route exact path="/:id" component={Details} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/:id" component={Details} />
         </Switch>
       </Router>
     </Container>
