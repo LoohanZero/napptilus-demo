@@ -47,7 +47,9 @@ I first decided to do it all directly on the home but it ended up being rather d
 Github: https://github.com/LoohanZero/ <br />
 Linkedin: https://es.linkedin.com/in/lujansanchez
 
-## Napptilus Licence
+## Licence
+
+Napptilus Tech Labs: http://napptilus.com/
 
 ---
 
