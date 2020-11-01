@@ -20,16 +20,17 @@ const Card = ({
   lastName,
   gender,
   profession,
-  functionClick,
+  onSelect,
 }) => {
+  
   return (
     <Container
       tabIndex="0"
       id={id}
       as="article"
       className={style.cardContainer}
-      onClick={functionClick}
-      onKeyDown={functionClick}
+      onClick={onSelect}
+      onKeyDown={onSelect}
     >
       <Container className={style.imageContainer}>
         <Image src={src} className={style.cardImage} />

@@ -20,14 +20,11 @@ const Home = () => {
   const [getData, checkTimeStorage, saveToLocalStorage] = useLocalStorage();
   const history = useHistory();
 
-  const handleOompaDetails = (event, id) => {
-    if (event.key === "Enter" || event.type === "click") {
-      history.push(`/${id}`);
-    }
+  const handleOompaDetails = (id) => {
+    history.push(`/${id}`);
   };
 
   const getOompas = async (page) => {
-    console.log(page);
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
     )
@@ -86,7 +83,10 @@ const Home = () => {
                 lastName={oompa.last_name}
                 gender={oompa.gender}
                 profession={oompa.profession}
-                functionClick={(event) => handleOompaDetails(event, oompa.id)}
+                onSelect={(event) =>
+                  (event.key === "Enter" || event.type === "click") &&
+                  handleOompaDetails(oompa.id)
+                }
               />
             ))}
       </Container>
