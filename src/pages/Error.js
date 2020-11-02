@@ -18,7 +18,7 @@ const Error = () => {
           <Container className={style.errorHeadingContainer}>
             <Heading className={style.errorTitle}>Error 404</Heading>
             <Text evel={2} className={style.errorMessage}>
-              There's no Oompa with that ID
+              There are no Oompas with that ID
             </Text>
           </Container>
         </Container>
