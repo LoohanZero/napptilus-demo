@@ -12,8 +12,9 @@ const useLocalStorage = () => {
 
     return tomorrow.toString();
   };
-//SEPARAR LOGICA DE UN OOMPA CON LA DE VARIOS OOMPAS AUNQUE USE EL MISMO OBJETO EN LOCAL STORAGE, LA FUNCIÓN SE ESTÁ HACIENDO DEMASIADO ENGORROSA
-  const saveToLocalStorage = (oompas, data, page) => {
+  //SEPARAR LOGICA DE UN OOMPA CON LA DE VARIOS OOMPAS AUNQUE USE EL MISMO OBJETO EN LOCAL STORAGE, LA FUNCIÓN SE ESTÁ HACIENDO DEMASIADO ENGORROSA
+
+  const saveOompasToLocalStorage = (oompas, data, page) => {
     let toStorage = getData();
 
     const oompasInfo = {
@@ -21,21 +22,29 @@ const useLocalStorage = () => {
       page: page,
       oompas: [...oompas, data.results],
     };
-    const oompaInfo = {
-      OompaExpirationDate: getExpirationDate(),
-      oompa: [...oompas, data],
-    };
 
-    if (toStorage && data.results) {
+    if (!toStorage) {
+      console.log("no hay storage y  son los oompas ");
+      toStorage = { ...oompasInfo };
+    } else {
       console.log("hay storage y son los oompas");
       toStorage = {
         ...toStorage,
         ...oompasInfo,
       };
-    } else if (!toStorage && data && data.hasOwnProperty("results")) {
-      console.log("no hay storage y  son los oompas ");
-      toStorage = { ...oompasInfo };
-    } else if (!toStorage && data && !data.hasOwnProperty("results")) {
+    }
+    localStorage.setItem("data", JSON.stringify(toStorage));
+  };
+
+  const saveOompaToLocalStorage = (oompa, data, id) => {
+    let toStorage = getData();
+
+    const oompaInfo = {
+      OompaExpirationDate: getExpirationDate(),
+      oompa: [...oompa, data],
+    };
+
+    if (!toStorage) {
       console.log("no hay storage y es el oompa ");
       toStorage = { ...oompaInfo };
     } else {
@@ -47,7 +56,6 @@ const useLocalStorage = () => {
         };
       }
     }
-
     localStorage.setItem("data", JSON.stringify(toStorage));
   };
 
@@ -58,7 +66,12 @@ const useLocalStorage = () => {
     }
   };
 
-  return [getData, checkTimeStorage, saveToLocalStorage];
+  return [
+    getData,
+    checkTimeStorage,
+    saveOompasToLocalStorage,
+    saveOompaToLocalStorage,
+  ];
 };
 
 export default useLocalStorage;
