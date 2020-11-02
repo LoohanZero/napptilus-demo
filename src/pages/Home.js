@@ -38,18 +38,18 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const dataOompas = getData();
+    const localOompas = getData();
 
     if (
-      (!dataOompas && !isBottom) ||
-      checkTimeStorage(dataOompas) ||
+      !localOompas ||
+      checkTimeStorage(localOompas.oompasExpirationDate) ||
       isBottom
     ) {
       getOompas(page);
     } else {
-      const localOompas = getData();
       setOompas(localOompas.oompas);
       setPage(localOompas.page);
+      console.log("Estoy localstoreando oompas");
     }
   }, [isBottom]);
 
@@ -63,34 +63,35 @@ const Home = () => {
   };
 
   return (
-    <Container as="main" className={style.homeContainer}>
-      <Search
-        onSearch={setSearch}
-        value={search}
-      />
-      <Heading className={style.title}>Find your Oompa Loompa</Heading>
-      <Text className={style.subtitle}>There are more than 100k</Text>
-      <Container className={style.cardsContainer}>
-        {oompas.length > 1 &&
-          oompas
-            .filter(isSearched)
-            .map((oompa) => (
-              <Card
-                id={oompa.id}
-                key={oompa.id}
-                src={oompa.image}
-                firstName={oompa.first_name}
-                lastName={oompa.last_name}
-                gender={oompa.gender}
-                profession={oompa.profession}
-                onSelect={(event) =>
-                  (event.key === "Enter" || event.type === "click") &&
-                  handleOompaDetails(oompa.id)
-                }
-              />
-            ))}
-      </Container>
-    </Container>
+    oompas && (
+      <>
+        <Container as="main" className={style.homeContainer}>
+          <Search onSearch={setSearch} value={search} />
+          <Heading className={style.title}>Find your Oompa Loompa</Heading>
+          <Text className={style.subtitle}>There are more than 100k</Text>
+          <Container className={style.cardsContainer}>
+            {oompas.length > 1 &&
+              oompas
+                .filter(isSearched)
+                .map((oompa) => (
+                  <Card
+                    id={oompa.id}
+                    key={oompa.id}
+                    src={oompa.image}
+                    firstName={oompa.first_name}
+                    lastName={oompa.last_name}
+                    gender={oompa.gender}
+                    profession={oompa.profession}
+                    onSelect={(event) =>
+                      (event.key === "Enter" || event.type === "click") &&
+                      handleOompaDetails(oompa.id)
+                    }
+                  />
+                ))}
+          </Container>
+        </Container>
+      </>
+    )
   );
 };
 

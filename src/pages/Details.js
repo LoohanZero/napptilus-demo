@@ -9,6 +9,7 @@ import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
 
+import useLocalStorage from "../hooks/useLocalStorage";
 import errorImage from "../imgs/500-internal-server-error-featured-image-1.png";
 
 import style from "../styles/pages/details.module.css";
@@ -22,25 +23,41 @@ const Details = () => {
   const [oompa, setOompa] = useState([]);
   const [error, setError] = useState("");
   const { id } = useParams();
+  const [getData, checkTimeStorage, saveToLocalStorage] = useLocalStorage();
+
   const createMarkup = (description) => {
     const sanitizer = dompurify.sanitize;
     return { __html: sanitizer(description) };
   };
 
+  const getOompa = async () => {
+    fetch(
+      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.errorMessage) {
+          setError(data);
+        } else {
+          setOompa([...oompa, data]);
+          saveToLocalStorage(oompa, data, id);
+        }
+      });
+  };
+
   useEffect(() => {
-    const getOompa = async () => {
-      fetch(
-        `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.errorMessage) {
-            setError(data);
-          } else {
-            setOompa(data);
-          }
-        });
-    };
+    const dataOompa = getData();
+
+    if (!dataOompa || checkTimeStorage(dataOompa.oompaExpirationDate)) {
+      getOompa();
+    } else {
+      const localOompa = getData();
+      // console.log(localOompa)
+      const selectedOompa = localOompa.oompa.filter((oompa) => oompa.id === id);
+      console.log(selectedOompa)
+      setOompa(selectedOompa);
+    }
+
     getOompa();
   }, [id]);
 
