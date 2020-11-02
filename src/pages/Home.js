@@ -17,7 +17,11 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
-  const [getData, checkTimeStorage, saveToLocalStorage] = useLocalStorage();
+  const {
+    getData,
+    checkTimeStorage,
+    saveOompasToLocalStorage,
+  } = useLocalStorage();
   const history = useHistory();
 
   const handleOompaDetails = (id) => {
@@ -30,9 +34,10 @@ const Home = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.results);
         setOompas([...oompas, ...data.results]);
         setIsBottom(false);
-        saveToLocalStorage(oompas, data, page + 1);
+        saveOompasToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
       });
   };
@@ -41,15 +46,14 @@ const Home = () => {
     const localOompas = getData();
 
     if (
-      !localOompas ||
+      !localOompas || !localOompas.oompas ||
       checkTimeStorage(localOompas.oompasExpirationDate) ||
       isBottom
     ) {
       getOompas(page);
     } else {
-      setOompas(localOompas.oompas);
-      setPage(localOompas.page);
-      console.log("Estoy localstoreando oompas");
+      setOompas(localOompas.oompas.oompas);
+      setPage(localOompas.oompas.page);
     }
   }, [isBottom]);
 

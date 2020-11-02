@@ -15,48 +15,53 @@ const useLocalStorage = () => {
   //SEPARAR LOGICA DE UN OOMPA CON LA DE VARIOS OOMPAS AUNQUE USE EL MISMO OBJETO EN LOCAL STORAGE, LA FUNCIÓN SE ESTÁ HACIENDO DEMASIADO ENGORROSA
 
   const saveOompasToLocalStorage = (oompas, data, page) => {
-    let toStorage = getData();
-
+    let localOompas = getData();
+    const storedOompas = localOompas && localOompas.oompas;
+    console.log(localOompas);
     const oompasInfo = {
-      OompasExpirationDate: getExpirationDate(),
-      page: page,
-      oompas: [...oompas, data.results],
+      oompas: {
+        OompasExpirationDate: getExpirationDate(),
+        page: page,
+        oompas: [...oompas, ...data.results],
+      },
     };
 
-    if (!toStorage) {
-      console.log("no hay storage y  son los oompas ");
-      toStorage = { ...oompasInfo };
+    if (!storedOompas) {
+      localOompas = { ...oompasInfo };
     } else {
-      console.log("hay storage y son los oompas");
-      toStorage = {
-        ...toStorage,
+      localOompas = {
+        ...localOompas,
         ...oompasInfo,
       };
     }
-    localStorage.setItem("data", JSON.stringify(toStorage));
+    localStorage.setItem("data", JSON.stringify(localOompas));
   };
 
-  const saveOompaToLocalStorage = (oompa, data, id) => {
-    let toStorage = getData();
-
+  const saveOompaToLocalStorage = (data, id) => {
+    let localOompa = getData();
+    const newOompa = { ...data, id: id };
+    const arrayOompas = localOompa.oompa.oompa ? localOompa.oompa.oompa : [];
+    
     const oompaInfo = {
-      OompaExpirationDate: getExpirationDate(),
-      oompa: [...oompa, data],
+      oompa: {
+        OompaExpirationDate: getExpirationDate(),
+        oompa: [...arrayOompas, newOompa],
+      },
     };
 
-    if (!toStorage) {
-      console.log("no hay storage y es el oompa ");
-      toStorage = { ...oompaInfo };
-    } else {
-      console.log("hay storage y es el oompa");
-      if (toStorage.oompa.includes(data)) {
-        toStorage = {
-          ...toStorage,
-          ...oompaInfo,
-        };
-      }
+    if (!localOompa) {
+      localOompa = { ...oompaInfo };
+    } else if (
+      !localOompa.oompa ||
+      (localOompa.oompa.oompa &&
+        localOompa.oompa.oompa.filter((oompa) => oompa.id === id).length < 1)
+    ) {
+      localOompa = {
+        ...localOompa,
+        ...oompaInfo,
+      };
     }
-    localStorage.setItem("data", JSON.stringify(toStorage));
+    localStorage.setItem("data", JSON.stringify(localOompa));
   };
 
   const checkTimeStorage = (date) => {
@@ -66,12 +71,12 @@ const useLocalStorage = () => {
     }
   };
 
-  return [
+  return {
     getData,
     checkTimeStorage,
     saveOompasToLocalStorage,
     saveOompaToLocalStorage,
-  ];
+  };
 };
 
 export default useLocalStorage;

@@ -20,10 +20,14 @@ const GENDER = {
 };
 
 const Details = () => {
-  const [oompa, setOompa] = useState([]);
+  const [oompa, setOompa] = useState({});
   const [error, setError] = useState("");
   const { id } = useParams();
-  const [getData, checkTimeStorage, saveToLocalStorage] = useLocalStorage();
+  const {
+    getData,
+    checkTimeStorage,
+    saveOompaToLocalStorage,
+  } = useLocalStorage();
 
   const createMarkup = (description) => {
     const sanitizer = dompurify.sanitize;
@@ -39,8 +43,8 @@ const Details = () => {
         if (data.errorMessage) {
           setError(data);
         } else {
-          setOompa([...oompa, data]);
-          saveToLocalStorage(oompa, data, id);
+          setOompa(data);
+          saveOompaToLocalStorage(data, id);
         }
       });
   };
@@ -48,14 +52,17 @@ const Details = () => {
   useEffect(() => {
     const dataOompa = getData();
 
-    if (!dataOompa || checkTimeStorage(dataOompa.oompaExpirationDate)) {
+    if (
+      !dataOompa ||
+      !dataOompa.oompa ||
+      checkTimeStorage(dataOompa.oompaExpirationDate)
+    ) {
       getOompa();
     } else {
-      const localOompa = getData();
-      // console.log(localOompa)
-      const selectedOompa = localOompa.oompa.filter((oompa) => oompa.id === id);
-      console.log(selectedOompa)
-      setOompa(selectedOompa);
+      const localOompa = getData().oompa;
+      const selectedOompa =
+        localOompa.oompa && localOompa.oompa.filter((oompa) => oompa.id === id);
+      setOompa(selectedOompa[0]);
     }
 
     getOompa();
