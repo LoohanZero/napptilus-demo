@@ -52,7 +52,7 @@ const Home = () => {
     const localOompas = getData().oompas;
 
     if (
-      !localOompas ||
+      !localOompas?.data ||
       checkTimeStorage(localOompas?.expirationDate) ||
       isBottom
     ) {
@@ -64,7 +64,8 @@ const Home = () => {
   }, [isBottom]);
 
   const isSearched = (oompa) => {
-    const toSearch = oompa.first_name + " " + oompa.last_name + oompa.profession;
+    const toSearch =
+      oompa.first_name + " " + oompa.last_name + oompa.profession;
     const regexp = new RegExp(search, "i");
 
     return regexp.test(toSearch);
