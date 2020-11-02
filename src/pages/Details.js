@@ -52,19 +52,17 @@ const Details = () => {
       setError(true);
     }
 
-    const dataOompa = getData();
+    const localOompa = getData();
 
     if (
-      !dataOompa ||
-      !dataOompa.oompa ||
-      checkTimeStorage(dataOompa.oompaExpirationDate)
+      !localOompa?.oompa?.expDate ||
+      checkTimeStorage(localOompa?.oompa?.expDate)
     ) {
       getOompa();
     } else {
       const localOompa = getData().oompa;
-      const selectedOompa =
-        localOompa.oompa && localOompa.oompa.filter((oompa) => oompa.id === id);
-      setOompa(selectedOompa[0]);
+      const selectedOompa = localOompa?.data.find((oompa) => oompa.id === id);
+      setOompa(selectedOompa);
     }
 
     getOompa();

@@ -2,7 +2,15 @@ const useLocalStorage = () => {
   const localStorage = window.localStorage;
 
   const getData = () => {
-    return JSON.parse(localStorage.getItem("data"));
+    const storedOompas = localStorage.getItem("data");
+    if (storedOompas) {
+      return JSON.parse(storedOompas);
+    } else {
+      return {
+        oompas: {},
+        oompa: {},
+      };
+    }
   };
 
   const getExpirationDate = () => {
@@ -15,24 +23,20 @@ const useLocalStorage = () => {
 
   const saveOompasToLocalStorage = (oompas, data, page) => {
     let localOompas = getData();
-    const storedOompas = localOompas && localOompas.oompas;
 
     const oompasInfo = {
       oompas: {
-        OompasExpirationDate: getExpirationDate(),
+        expDate: getExpirationDate(),
         page: page,
-        oompas: [...oompas, ...data.results],
+        data: [...oompas, ...data.results],
       },
     };
 
-    if (!storedOompas) {
-      localOompas = { ...oompasInfo };
-    } else {
-      localOompas = {
-        ...localOompas,
-        ...oompasInfo,
-      };
-    }
+    localOompas = {
+      ...localOompas,
+      ...oompasInfo,
+    };
+
     localStorage.setItem("data", JSON.stringify(localOompas));
   };
 
@@ -40,22 +44,16 @@ const useLocalStorage = () => {
     let localOompas = getData();
     const localOompa = localOompas.oompa;
     const newOompa = { ...data, id: id };
-    const arrayOompas = localOompa && localOompa.oompa ? localOompa.oompa : [];
+    const arrayOompas = localOompa?.oompa || [];
 
     const oompaInfo = {
       oompa: {
-        OompaExpirationDate: getExpirationDate(),
-        oompa: [...arrayOompas, newOompa],
+        expDate: getExpirationDate(),
+        data: [...arrayOompas, newOompa],
       },
     };
 
-    if (!localOompas) {
-      localOompas = { ...oompaInfo };
-    } else if (
-      !localOompas.oompa ||
-      (localOompa.oompa &&
-        localOompa.oompa.filter((oompa) => oompa.id === id).length < 1)
-    ) {
+    if (!localOompa?.data?.find((oompa) => oompa.id === id)) {
       localOompas = {
         ...localOompas,
         ...oompaInfo,
@@ -66,7 +64,6 @@ const useLocalStorage = () => {
 
   const checkTimeStorage = (date) => {
     if (new Date(date) <= new Date()) {
-      
       localStorage.removeItem("data");
     }
   };

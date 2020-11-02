@@ -49,27 +49,25 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const localOompas = getData();
+    const localOompas = getData().oompas;
 
     if (
-      !localOompas?.oompas ||
-      checkTimeStorage(localOompas.oompasExpirationDate) ||
+      !localOompas ||
+      checkTimeStorage(localOompas?.expirationDate) ||
       isBottom
     ) {
       getOompas(page);
     } else {
-      setOompas(localOompas.oompas.oompas);
-      setPage(localOompas.oompas.page);
+      setOompas(localOompas.data);
+      setPage(localOompas.page);
     }
   }, [isBottom]);
 
   const isSearched = (oompa) => {
-    return (
-      search.toLocaleLowerCase() === "" ||
-      oompa.first_name.toLowerCase().includes(search) ||
-      oompa.last_name.toLowerCase().includes(search) ||
-      oompa.profession.toLowerCase().includes(search)
-    );
+    const toSearch = oompa.first_name + oompa.last_name + oompa.profession;
+    const regexp = new RegExp(search, "i");
+
+    return regexp.test(toSearch);
   };
 
   return (
