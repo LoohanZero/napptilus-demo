@@ -6,6 +6,7 @@ import Heading from "../components/primitive/Heading";
 import Search from "../components/Search";
 import Text from "../components/primitive/Text";
 import Card from "../components/Card";
+import Loader from "../components/Loader";
 
 import useCheckScroll from "../hooks/useCheckScroll";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -18,6 +19,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     getData,
     checkTimeStorage,
@@ -35,11 +37,13 @@ const Home = () => {
     )
       .then((response) => response.json())
       .then((data) => {
+        setIsLoading(true);
         data.errorMessage && setError(true);
         !data.errorMessage && setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         saveOompasToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
+        setIsLoading(false);
       });
   };
 
@@ -70,6 +74,7 @@ const Home = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       {error && <Redirect exact to="/error" />}
       {oompas && !error && (
         <Container as="main" className={style.homeContainer}>
