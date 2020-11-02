@@ -5,7 +5,8 @@ This is an app that is able to display all the workers in the Willy Wonka factor
 ## Installation Instructions
 
 ```bash
-npm i 
+Clonar el repositorio
+npm i
 npm start
 ```
 
@@ -40,9 +41,9 @@ I stored in the localStorage. The useEffect function has an if condition that ch
 
 I first decided to do it all directly on the home but it ended up being rather disorganized. So I moved the check the scroll logic to a hook and imported the functions and variables I needed to the home and then decided to do the same with the localStorage logic. So the code would be more readable and less crowded.
 
-
 ## Extras
-I decided to add a spinner for the loading of the images with react-spinners and @emotion/core to override the default CSS it has. 
+
+I decided to add a spinner for the loading of the images with react-spinners and @emotion/core to override the default CSS it has.
 And decided to add an Error Page if there's any.
 
 ## María Luján Sanchez Cracco
@@ -51,5 +52,5 @@ Github: https://github.com/LoohanZero/ <br />
 Linkedin: https://es.linkedin.com/in/lujansanchez
 
 ## Licence
-Napptilus Tech Labs: http://napptilus.com/
 
+Napptilus Tech Labs: http://napptilus.com/

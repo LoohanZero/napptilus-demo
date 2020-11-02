@@ -63,6 +63,7 @@ const useLocalStorage = () => {
   };
 
   const checkTimeStorage = (date) => {
+    
     if (new Date(date) <= new Date()) {
       localStorage.removeItem("data");
     }

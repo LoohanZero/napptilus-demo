@@ -31,12 +31,12 @@ const Details = () => {
   } = useLocalStorage();
 
   const getOompa = () => {
+    setIsLoading(true);
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
     )
       .then((response) => response.json())
       .then((data) => {
-        setIsLoading(true);
         if (data.errorMessage) {
           setError(data);
         } else {
@@ -64,8 +64,7 @@ const Details = () => {
       const selectedOompa = localOompa?.data.find((oompa) => oompa.id === id);
       setOompa(selectedOompa);
     }
-
-    getOompa();
+    
   }, [id]);
 
   return (
