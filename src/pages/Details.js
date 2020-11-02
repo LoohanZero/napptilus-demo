@@ -10,7 +10,7 @@ import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
 
 import useLocalStorage from "../hooks/useLocalStorage";
-import errorImage from "../imgs/500-internal-server-error-featured-image-1.png";
+
 
 import style from "../styles/pages/details.module.css";
 
@@ -70,21 +70,6 @@ const Details = () => {
 
   return (
     <>
-      {error && (
-        <>
-          <Container as="section" id={id} className={style.errorContainer}>
-            <Container className={style.errorDescription}>
-              <Image className={style.errorImage} src={errorImage} />
-              <Container className={style.errorHeadingContainer}>
-                <Heading className={style.errorTitle}>Error 404</Heading>
-                <Text evel={2} className={style.errorMessage}>
-                  {error["errorMessage"]}
-                </Text>
-              </Container>
-            </Container>
-          </Container>
-        </>
-      )}
       {oompa && !error && (
         <>
           <ScrollToTop />

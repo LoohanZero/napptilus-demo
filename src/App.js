@@ -6,6 +6,7 @@ import Container from "./components/primitive/Container";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:id" component={Details} />
+          <Route exact component={Error} />
         </Switch>
       </Router>
     </Container>

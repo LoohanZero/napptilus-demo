@@ -1,0 +1,39 @@
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px);
+}
+.errorDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #d9d9d9;
+  overflow: hidden;
+  width: 550px;
+  height: 400px;
+}
+
+.errorImage {
+  width: 550px;
+}
+.errorHeadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.errorTitle {
+  font-size: 40px;
+  padding-bottom: 10px;
+  font-weight: normal;
+}
+.errorMessage {
+  font-size: 25px;
+  text-align: center;
+  color: #676767;
+}
