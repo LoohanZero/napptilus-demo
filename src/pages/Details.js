@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import dompurify from "dompurify";
 
 import Container from "../components/primitive/Container";
@@ -11,7 +11,6 @@ import ScrollToTop from "../components/ScrollToTop";
 
 import useLocalStorage from "../hooks/useLocalStorage";
 
-
 import style from "../styles/pages/details.module.css";
 
 const GENDER = {
@@ -21,7 +20,7 @@ const GENDER = {
 
 const Details = () => {
   const [oompa, setOompa] = useState({});
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const { id } = useParams();
   const {
     getData,
@@ -50,6 +49,11 @@ const Details = () => {
   };
 
   useEffect(() => {
+    if (typeof id !== "number") {
+      console.log(typeof id);
+      setError(true);
+    }
+
     const dataOompa = getData();
 
     if (
@@ -70,6 +74,7 @@ const Details = () => {
 
   return (
     <>
+      {error && <Redirect exact to="/error" />}
       {oompa && !error && (
         <>
           <ScrollToTop />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
@@ -17,6 +17,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isBottom, setIsBottom] = useCheckScroll();
+  const [error, setError] = useState(false);
   const {
     getData,
     checkTimeStorage,
@@ -30,12 +31,12 @@ const Home = () => {
 
   const getOompas = async (page) => {
     fetch(
-      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
+      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${"asasa"}`
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.results);
-        setOompas([...oompas, ...data.results]);
+        data.errorMessage && setError(true);
+        !data.errorMessage && setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         saveOompasToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
@@ -46,7 +47,8 @@ const Home = () => {
     const localOompas = getData();
 
     if (
-      !localOompas || !localOompas.oompas ||
+      !localOompas ||
+      !localOompas.oompas ||
       checkTimeStorage(localOompas.oompasExpirationDate) ||
       isBottom
     ) {
@@ -67,8 +69,9 @@ const Home = () => {
   };
 
   return (
-    oompas && (
-      <>
+    <>
+      {error && <Redirect exact to="/error" />}
+      {oompas && !error && (
         <Container as="main" className={style.homeContainer}>
           <Search onSearch={setSearch} value={search} />
           <Heading className={style.title}>Find your Oompa Loompa</Heading>
@@ -94,8 +97,8 @@ const Home = () => {
                 ))}
           </Container>
         </Container>
-      </>
-    )
+      )}
+    </>
   );
 };
 

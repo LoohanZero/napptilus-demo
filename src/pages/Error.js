@@ -12,21 +12,18 @@ import style from "../styles/pages/error.module.css";
 const Error = () => {
   return (
     <>
-   (
-        <>
-          <Container as="section" className={style.errorContainer}>
-            <Container className={style.errorDescription}>
-              <Image className={style.errorImage} src={errorImage} />
-              <Container className={style.errorHeadingContainer}>
-                <Heading className={style.errorTitle}>Error 404</Heading>
-                <Text evel={2} className={style.errorMessage}>
-                  {/* {error["errorMessage"]} */}
-                </Text>
-              </Container>
-            </Container>
+      {console.log("estoy cargando el error")}
+      <Container as="section" className={style.errorContainer}>
+        <Container className={style.errorDescription}>
+          <Image className={style.errorImage} src={errorImage} />
+          <Container className={style.errorHeadingContainer}>
+            <Heading className={style.errorTitle}>Error 404</Heading>
+            <Text evel={2} className={style.errorMessage}>
+              {/* {error["errorMessage"]} */}
+            </Text>
           </Container>
-        </>
-      )
+        </Container>
+      </Container>
     </>
   );
 };
