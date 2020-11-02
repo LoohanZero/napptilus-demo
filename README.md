@@ -7,8 +7,9 @@ This is an app that is able to display all the workers in the Willy Wonka factor
 ```bash
 npx create-react-app
 npm i eslint
-npm i dompurify
-
+npm i interweave
+npm i react-spinners
+npm i @emotion/core
 ```
 
 This app is created with React JS and Vanilla Javascript.
@@ -34,13 +35,18 @@ I created a filterOompas function that will trigger before the map function in t
 
 > "It must be taken into account that some episodes description include HTML and it should be shown interpreted (not escaped)."
 
-I did it with the "dangerouslySetInnerHTML" attribute but, as it says it's very dangerous (it's the first time I've ever used it) I've decided to implement a security library to avoid security implications. It is dompurify.
+I did it with the "dangerouslySetInnerHTML" attribute but, as it says it's very dangerous (it's the first time I've ever used it) I've decided to implement a security library to avoid security implications. It is dompurify. Then it gave me problems when I tried to install packages so I uninstalled it and installed Interweave. Interweave is a library that allows React to access pure HTML without using "dangerouslySetInnerHTML".
 
 > "Once the detail is obtained for the first time from the external service, it must be stored in the client so that it is only requested if more than one day has passed since the last time it was requested."
 
 I stored in the localStorage. The useEffect function has an if condition that checks if the localStorage has the information required, if it does, then the info from the localStorage is displayed. Then it checks if this info is 24hs or more old and if it is, it removes the info from the localStorage. If the localStorage is empty, it triggers the search from the API and retrieves new information.
 
 I first decided to do it all directly on the home but it ended up being rather disorganized. So I moved the check the scroll logic to a hook and imported the functions and variables I needed to the home and then decided to do the same with the localStorage logic. So the code would be more readable and less crowded.
+
+
+## Extras
+I decided to add a spinner for the loading of the images with react-spinners and @emotion/core to override the default CSS it has. 
+And decided to add an Error Page if there's any.
 
 ## María Luján Sanchez Cracco
 

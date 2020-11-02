@@ -12,12 +12,11 @@ const useLocalStorage = () => {
 
     return tomorrow.toString();
   };
-  //SEPARAR LOGICA DE UN OOMPA CON LA DE VARIOS OOMPAS AUNQUE USE EL MISMO OBJETO EN LOCAL STORAGE, LA FUNCIÓN SE ESTÁ HACIENDO DEMASIADO ENGORROSA
 
   const saveOompasToLocalStorage = (oompas, data, page) => {
     let localOompas = getData();
     const storedOompas = localOompas && localOompas.oompas;
-    console.log(localOompas);
+
     const oompasInfo = {
       oompas: {
         OompasExpirationDate: getExpirationDate(),
@@ -38,10 +37,11 @@ const useLocalStorage = () => {
   };
 
   const saveOompaToLocalStorage = (data, id) => {
-    let localOompa = getData();
+    let localOompas = getData();
+    const localOompa = localOompas.oompa;
     const newOompa = { ...data, id: id };
-    const arrayOompas = localOompa.oompa.oompa ? localOompa.oompa.oompa : [];
-    
+    const arrayOompas = localOompa && localOompa.oompa ? localOompa.oompa : [];
+
     const oompaInfo = {
       oompa: {
         OompaExpirationDate: getExpirationDate(),
@@ -49,19 +49,19 @@ const useLocalStorage = () => {
       },
     };
 
-    if (!localOompa) {
-      localOompa = { ...oompaInfo };
+    if (!localOompas) {
+      localOompas = { ...oompaInfo };
     } else if (
-      !localOompa.oompa ||
-      (localOompa.oompa.oompa &&
-        localOompa.oompa.oompa.filter((oompa) => oompa.id === id).length < 1)
+      !localOompas.oompa ||
+      (localOompa.oompa &&
+        localOompa.oompa.filter((oompa) => oompa.id === id).length < 1)
     ) {
-      localOompa = {
-        ...localOompa,
+      localOompas = {
+        ...localOompas,
         ...oompaInfo,
       };
     }
-    localStorage.setItem("data", JSON.stringify(localOompa));
+    localStorage.setItem("data", JSON.stringify(localOompas));
   };
 
   const checkTimeStorage = (date) => {

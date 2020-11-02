@@ -31,7 +31,7 @@ const Home = () => {
 
   const getOompas = async (page) => {
     fetch(
-      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${"asasa"}`
+      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
     )
       .then((response) => response.json())
       .then((data) => {

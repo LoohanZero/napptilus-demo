@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
-import dompurify from "dompurify";
+import Interweave from "interweave";
 
 import Container from "../components/primitive/Container";
 import Heading from "../components/primitive/Heading";
@@ -8,6 +8,7 @@ import Image from "../components/primitive/Image";
 import Span from "../components/primitive/Span";
 import Text from "../components/primitive/Text";
 import ScrollToTop from "../components/ScrollToTop";
+import Loader from "../components/Loader";
 
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -21,6 +22,7 @@ const GENDER = {
 const Details = () => {
   const [oompa, setOompa] = useState({});
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const {
     getData,
@@ -28,28 +30,25 @@ const Details = () => {
     saveOompaToLocalStorage,
   } = useLocalStorage();
 
-  const createMarkup = (description) => {
-    const sanitizer = dompurify.sanitize;
-    return { __html: sanitizer(description) };
-  };
-
   const getOompa = async () => {
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
     )
       .then((response) => response.json())
       .then((data) => {
+        setIsLoading(true);
         if (data.errorMessage) {
           setError(data);
         } else {
           setOompa(data);
           saveOompaToLocalStorage(data, id);
+          setIsLoading(false);
         }
       });
   };
 
   useEffect(() => {
-    if (typeof id !== "number") {
+    if (typeof Number(id) !== "number") {
       console.log(typeof id);
       setError(true);
     }
@@ -74,6 +73,7 @@ const Details = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       {error && <Redirect exact to="/error" />}
       {oompa && !error && (
         <>
@@ -93,9 +93,9 @@ const Details = () => {
                   <Text className={style.gender}>{GENDER[oompa.gender]}</Text>
                   <Text className={style.profession}>{oompa.profession}</Text>
                 </Container>
-                <Container
+                <Interweave
                   className={style.description}
-                  dangerouslySetInnerHTML={createMarkup(oompa.description)}
+                  content={oompa.description}
                 />
               </Container>
             </Container>
