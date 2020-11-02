@@ -48,8 +48,7 @@ const Details = () => {
   };
 
   useEffect(() => {
-    if (typeof Number(id) !== "number") {
-     
+    if (isNaN(id)) {
       setError(true);
     }
 

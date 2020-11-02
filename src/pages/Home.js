@@ -38,8 +38,9 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setIsLoading(true);
-        data.errorMessage && setError(true);
-        !data.errorMessage && setOompas([...oompas, ...data.results]);
+        data.errorMessage
+          ? setError(true)
+          : setOompas([...oompas, ...data.results]);
         setIsBottom(false);
         saveOompasToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
@@ -51,8 +52,7 @@ const Home = () => {
     const localOompas = getData();
 
     if (
-      !localOompas ||
-      !localOompas.oompas ||
+      !localOompas?.oompas ||
       checkTimeStorage(localOompas.oompasExpirationDate) ||
       isBottom
     ) {
