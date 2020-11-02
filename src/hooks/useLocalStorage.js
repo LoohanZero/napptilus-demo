@@ -66,7 +66,7 @@ const useLocalStorage = () => {
 
   const checkTimeStorage = (date) => {
     if (new Date(date) <= new Date()) {
-      console.log("Está borrando el storage");
+      
       localStorage.removeItem("data");
     }
   };

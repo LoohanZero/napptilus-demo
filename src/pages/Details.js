@@ -30,7 +30,7 @@ const Details = () => {
     saveOompaToLocalStorage,
   } = useLocalStorage();
 
-  const getOompa = async () => {
+  const getOompa = () => {
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
     )
@@ -49,7 +49,7 @@ const Details = () => {
 
   useEffect(() => {
     if (typeof Number(id) !== "number") {
-      console.log(typeof id);
+     
       setError(true);
     }
 

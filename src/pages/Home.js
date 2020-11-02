@@ -31,7 +31,7 @@ const Home = () => {
     history.push(`/${id}`);
   };
 
-  const getOompas = async (page) => {
+  const getOompas = (page) => {
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
     )
