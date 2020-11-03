@@ -2,6 +2,10 @@
 
 This is an app that is able to display all the workers in the Willy Wonka factory and it allows their users to filter the Oompas by firstname, lastname or profession. If you click/press enter in any Oompa, the user will be able to see the Oompa's details.
 
+## Deployed Website
+
+
+
 ## Installation Instructions
 
 ```bash
@@ -24,6 +28,7 @@ This app is created with React JS, Vanilla Javascript and CSS.
 
 I've decided to make a primitive component for each JSX tag and save them in the primitive folder. Then I could send the information needed by the functional components as props. By individualizing them I was able to reuse them as different components (see Heading or Container) or separate the logic from the JSX component itself.
 I've also decided to separate the styles files from the Javascript files so everything is organized and easily displayed. Both folders have exactly the same name files so they could be easy to find.
+To call the API I had decided to do it with async/await and try/catch but when I started working with it I realized the error came as a 200 instruction instead as a 400 so the catch wasn't going to work and decided to change it to a fetch/then.
 
 ## Instructions explanation
 
