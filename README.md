@@ -10,7 +10,7 @@ npm i
 npm start
 ```
 
-This app is created with React JS and Vanilla Javascript.
+This app is created with React JS, Vanilla Javascript and CSS.
 
 ## Home Image
 
@@ -19,6 +19,13 @@ This app is created with React JS and Vanilla Javascript.
 ## Details Image
 
 ![Home Image](/src/imgs/Details.png)
+
+## Organization
+
+I decided to make a primitive component for each JSX tag as primitive components and save them in the primitive folder. Then I could the information needed by the functional components as props. By individualizing them I was able to reuse them as different components (see Heading or Container) or separate the logic from the JSX component itself.
+I've also decided to separate the styles files from the Javascript files so everything is separated and easily displayed. Both folders have exactly the same name files so they could be easy to find.
+
+## Instructions explanation
 
 > "This view should show the list of Oompa Loompas that are available at the endpoint https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=1 where the page query param can be used to select the page to be retrieved. The list must have an endless scroll, so that each page of Oompa Loompas is loaded as the user scrolls down."
 
@@ -38,13 +45,19 @@ I did it with the "dangerouslySetInnerHTML" attribute but, as it said it's very 
 > "Once the detail is obtained for the first time from the external service, it must be stored in the client so that it is only requested if more than one day has passed since the last time it was requested."
 
 I stored in the localStorage. The useEffect function has an if condition that checks if the localStorage has the information required, if it does, then the info from the localStorage is displayed. Then it checks if this info is 24hs or more old and if it is, it removes the info from the localStorage. If the localStorage is empty, it triggers the search from the API and retrieves new information.
+I organized the info in an object with two properties: oompa and oompas. Oompa is for the individual Oompa checked by the user. It saves the data's expiration date in one property and the oompa's description in an object's array. To save the individual Oompa first I needed to check if there was any info in the "data" property. If there wasn't, I needed to create the empty array to add the individual Oompa's description and the ID. When you retrieve the information from the API, the ID is not included so I had to save it in the Oompa's object to be able to identify it. Then if a second Oompa is being stored, I could check the ID to make sure it's not the same Oompa as I don't want it stored more than once.
+Ooompas' property is saved from the Home page. It's stored as well in an object with three different properties: the expiration date, the future page the API should retrieve given the case the user comes back in less than 24 hours and the object's array retrieved by the fetch. This function makes sure to not overwrite the previous information so every new page is saved along with the previous ones.
 
-I first decided to do it all directly on the home but it ended up being rather disorganized. So I moved the check the scroll logic to a hook and imported the functions and variables I needed to the home and then decided to do the same with the localStorage logic. So the code would be more readable and less crowded.
+I first decided to do it all directly on the home page but it ended up being rather disorganized. So I moved the scroll logic to a hook and imported the functions and variables I needed to the home and then decided to do the same with the localStorage logic. So the code would be more readable and less crowded.
+
+## Styles
+
+The styles were made in CSS. I made an index file for the global styles and then a module for each different functional component.
 
 ## Extras
 
-I decided to add a spinner for the loading of the images with react-spinners and @emotion/core to override the default CSS it has.
-And decided to add an Error Page if there's any.
+I decided to add a spinner for the loading of the images with react-spinners and @emotion/core to override the default CSS it has. I've also added an Error Page in case there's any. As well as a ScrollToTop component that scrolls the oompa's details page to the top because when you scrolled down to the last oompas in the home and chose one, the page was showed from the bottom.
+Finally I've added a \_redirects file in the public folder for deployment.
 
 ## María Luján Sanchez Cracco
 
