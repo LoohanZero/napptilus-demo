@@ -27,7 +27,7 @@ const useLocalStorage = () => {
     const oompasInfo = {
       oompas: {
         expDate: getExpirationDate(),
-        page: page,
+        nextPage: page,
         data: [...oompas, ...data.results],
       },
     };
@@ -42,7 +42,7 @@ const useLocalStorage = () => {
 
   const saveOompaToLocalStorage = (data, id) => {
     let localOompas = getData();
-    const localOompa = localOompas.oompa;
+    const localOompa = localOompas?.oompa;
     const newOompa = { ...data, id: id };
     const arrayOompas = localOompa?.oompa || [];
 
@@ -63,12 +63,10 @@ const useLocalStorage = () => {
   };
 
   const checkTimeStorage = (date) => {
-
     if (new Date(date) <= new Date()) {
       localStorage.removeItem("data");
-      return true
+      return true;
     }
-    
   };
 
   return {

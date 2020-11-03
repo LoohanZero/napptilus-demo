@@ -17,30 +17,34 @@ const Home = () => {
   const [oompas, setOompas] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [isBottom, setIsBottom] = useCheckScroll();
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+  const [isBottom, setIsBottom] = useCheckScroll();
   const {
     getData,
     checkTimeStorage,
     saveOompasToLocalStorage,
   } = useLocalStorage();
-  const history = useHistory();
+
 
   const handleOompaDetails = (id) => {
     history.push(`/${id}`);
   };
 
   const getOompas = (page) => {
+    setIsLoading(true);
+
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
     )
       .then((response) => response.json())
       .then((data) => {
-        setIsLoading(true);
+        
         data.errorMessage
           ? setError(true)
           : setOompas([...oompas, ...data.results]);
+
         setIsBottom(false);
         saveOompasToLocalStorage(oompas, data, page + 1);
         setPage(page + 1);
@@ -50,16 +54,16 @@ const Home = () => {
 
   useEffect(() => {
     const localOompas = getData().oompas;
-
+   
     if (
       !localOompas?.data ||
-      checkTimeStorage(localOompas?.expirationDate) ||
+      checkTimeStorage(localOompas?.expDate) ||
       isBottom
     ) {
       getOompas(page);
     } else {
       setOompas(localOompas.data);
-      setPage(localOompas.page);
+      setPage(localOompas.nextPage);
     }
   }, [isBottom]);
 

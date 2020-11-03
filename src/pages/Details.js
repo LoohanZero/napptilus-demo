@@ -32,13 +32,14 @@ const Details = () => {
 
   const getOompa = () => {
     setIsLoading(true);
+
     fetch(
       `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas/${id}`
     )
       .then((response) => response.json())
       .then((data) => {
         if (data.errorMessage) {
-          setError(data);
+          setError(true);
         } else {
           setOompa(data);
           saveOompaToLocalStorage(data, id);
@@ -70,7 +71,7 @@ const Details = () => {
     <>
       {isLoading && <Loader />}
       {error && <Redirect exact to="/error" />}
-      {oompa && !error && (
+      {oompa && !error && !isLoading && (
         <>
           <ScrollToTop />
           <Container as="section" id={id} className={style.detailsContainer}>
