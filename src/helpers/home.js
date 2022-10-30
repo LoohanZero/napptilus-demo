@@ -1,3 +1,5 @@
+import axios, { CancelToken } from 'axios';
+const source = CancelToken.source();
 //------------------ ENUMS ----------------------------
 const ACTIONS = {
     UPDATE_OOMPA_STATE: 'UPDATE_OOMPA_STATE',
@@ -52,7 +54,7 @@ const oompaStateReducer = (state, {type, payload}) => {
 
 //------------------ SYNC FUNCTIONS -------------------------
 
-const handleScroll = (isLoading, dispatchOompaState) => {
+const handleScroll = (dispatchOompaState) => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
@@ -82,16 +84,25 @@ const getOompas = async (page, isBottom, error, dispatchOompaState) => {
     dispatchOompaState({type: ACTIONS.TOGGLE_IS_LOADING});
 
     try {
-        const response = await fetch(
-            `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
+        const response = await axios.get(
+            `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas`, {
+                cancelToken: source.token,
+                params: {
+                    page: page
+                }
+            }
           );
-        const data = await response.json();
+        const data = await response.data;
         dispatchOompaState({type: ACTIONS.UPDATE_OOMPA_STATE, payload: data.results});
         dispatchOompaState({type: ACTIONS.UPDATE_PAGE, payload: page + 1});
         error && dispatchOompaState({type: ACTIONS.TOGGLE_ERROR});
     }
-    catch (error) {
-        dispatchOompaState({type: ACTIONS.TOGGLE_ERROR});
+    catch (thrown) {
+        if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+        } else {
+            dispatchOompaState({type: ACTIONS.TOGGLE_ERROR});
+        }
     }
     finally {
         dispatchOompaState({type: ACTIONS.TOGGLE_IS_LOADING});

@@ -29,14 +29,14 @@ const Home = () => {
   useEffect(() => {
     const localOompas = getOompasFromLocalStorage();
     const expiredDate = checkTimeStorage(localOompas?.expDate);
-    window.addEventListener("scroll", () => handleScroll(isLoading, dispatchOompaState));
+    window.addEventListener("scroll", () => handleScroll(dispatchOompaState));
 
     if (!localOompas?.data || expiredDate) {
       getOompas(page, isBottom, error, dispatchOompaState);
     }
 
     return () => {
-      window.removeEventListener("scroll", () => handleScroll(isLoading, dispatchOompaState));
+      window.removeEventListener("scroll", () => handleScroll(dispatchOompaState));
       saveOompasToLocalStorage(oompas, page);
     }
   }, []);
@@ -57,7 +57,7 @@ const Home = () => {
           <Container className={style.cardsContainer}>
             {oompas.length > 1 &&
               oompas
-                .filter((oompa) => searchOompa(oompa,search))
+                .filter((oompa) => searchOompa(oompa, search))
                 .map((oompa) => (
                   <Card
                     id={oompa.id}
