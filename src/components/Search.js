@@ -3,6 +3,7 @@ import React from "react";
 import Container from "../components/primitive/Container";
 import Image from "./primitive/Image";
 import Input from "./primitive/Input";
+import { ACTIONS } from "../helpers/home";
 
 import searchIcon from "../imgs/ic_search.png";
 
@@ -12,7 +13,7 @@ const Search = ({ onSearch, inputValue, placeholder }) => {
   return (
     <Container className={style.searchContainer}>
       <Input
-        onChange={(event) => onSearch(event.target.value)}
+        onChange={(event) => onSearch({type: ACTIONS.UPDATE_SEARCH, payload: event.target.value})}
         className={style.searchInput}
         value={inputValue}
         placeholder={placeholder}

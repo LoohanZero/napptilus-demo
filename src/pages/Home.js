@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 
 import Container from "../components/primitive/Container";
@@ -7,87 +7,57 @@ import Search from "../components/Search";
 import Text from "../components/primitive/Text";
 import Card from "../components/Card";
 import Loader from "../components/Loader";
+import { 
+  initialState, 
+  oompaStateReducer,
+  handleScroll, 
+  handleOompaDetails, 
+  getOompas, 
+  searchOompa
+} from '../helpers/home';
 
-import useCheckScroll from "../hooks/useCheckScroll";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 import style from "../styles/pages/home.module.css";
 
 const Home = () => {
-  const [oompas, setOompas] = useState([]);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [oompaState, dispatchOompaState] = useReducer(oompaStateReducer, initialState)
+  const {oompas, page, search, error, isBottom, isLoading} = oompaState;
   const history = useHistory();
-  const [isBottom, setIsBottom] = useCheckScroll();
-  const {
-    getData,
-    checkTimeStorage,
-    saveOompasToLocalStorage,
-  } = useLocalStorage();
-
-
-  const handleOompaDetails = (id) => {
-    history.push(`/${id}`);
-  };
-
-  const getOompas = (page) => {
-    setIsLoading(true);
-
-    fetch(
-      `https://2q2woep105.execute-api.eu-west-1.amazonaws.com/napptilus/oompa-loompas?page=${page}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        
-        data.errorMessage
-          ? setError(true)
-          : setOompas([...oompas, ...data.results]);
-
-        setIsBottom(false);
-        saveOompasToLocalStorage(oompas, data, page + 1);
-        setPage(page + 1);
-        setIsLoading(false);
-      });
-  };
+  const { getOompasFromLocalStorage, checkTimeStorage, saveOompasToLocalStorage } = useLocalStorage();
 
   useEffect(() => {
-    const localOompas = getData().oompas;
-   
-    if (
-      !localOompas?.data ||
-      checkTimeStorage(localOompas?.expDate) ||
-      isBottom
-    ) {
-      getOompas(page);
-    } else {
-      setOompas(localOompas.data);
-      setPage(localOompas.nextPage);
+    const localOompas = getOompasFromLocalStorage();
+    const expiredDate = checkTimeStorage(localOompas?.expDate);
+    window.addEventListener("scroll", () => handleScroll(isLoading, dispatchOompaState));
+
+    if (!localOompas?.data || expiredDate) {
+      getOompas(page, isBottom, error, dispatchOompaState);
     }
+
+    return () => {
+      window.removeEventListener("scroll", () => handleScroll(isLoading, dispatchOompaState));
+      saveOompasToLocalStorage(oompas, page);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isBottom) {
+      getOompas(page, isBottom, error, dispatchOompaState);
+    } 
   }, [isBottom]);
-
-  const isSearched = (oompa) => {
-    const toSearch =
-      oompa.first_name + " " + oompa.last_name + oompa.profession;
-    const regexp = new RegExp(search, "i");
-
-    return regexp.test(toSearch);
-  };
 
   return (
     <>
-      {isLoading && <Loader />}
-      {error && <Redirect exact to="/error" />}
       {oompas && !error && (
         <Container as="main" className={style.homeContainer}>
-          <Search onSearch={setSearch} value={search} />
+          <Search onSearch={dispatchOompaState} value={search} />
           <Heading className={style.title}>Find your Oompa Loompa</Heading>
           <Text className={style.subtitle}>There are more than 100k</Text>
           <Container className={style.cardsContainer}>
             {oompas.length > 1 &&
               oompas
-                .filter(isSearched)
+                .filter((oompa) => searchOompa(oompa,search))
                 .map((oompa) => (
                   <Card
                     id={oompa.id}
@@ -99,13 +69,15 @@ const Home = () => {
                     profession={oompa.profession}
                     onSelect={(event) =>
                       (event.key === "Enter" || event.type === "click") &&
-                      handleOompaDetails(oompa.id)
+                      handleOompaDetails(history, oompa.id)
                     }
                   />
                 ))}
           </Container>
         </Container>
       )}
+      {isLoading && <Loader />}
+      {error && <Redirect exact to="/error" />}
     </>
   );
 };
