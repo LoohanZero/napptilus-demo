@@ -14,6 +14,7 @@ module.exports = {
 		'SharedArrayBuffer': 'readonly'
 	},
 	'settings': { 'react': { 'version': 'detect' } },
+	'parser': 'babel-eslint',
 	'parserOptions': {
 		'ecmaFeatures': { 'jsx': true },
 		'ecmaVersion': 2020,

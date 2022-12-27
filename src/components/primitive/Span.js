@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Span = ({ children, ...props }) => {
-  return <span {...props}>{children}</span>;
+	return <span {...props}>{children}</span>;
 };
 
 export default Span;
